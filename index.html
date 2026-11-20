@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کاتەکانی بانگ - قەڵادزێ</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #121a2a;
+      --bg-card-hover: #182238;
+      --accent-gold: #e6b84c;
+      --accent-gold-soft: rgba(230, 184, 76, 0.16);
+      --accent-teal: #14b8a6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #132038 0%, var(--bg-dark) 65%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px 12px 40px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* Location Pill */
+    .location-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .location-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .location-pill span.city {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* Live Clock & Date */
+    .clock-section {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .live-clock {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #67e8f9;
+      text-shadow: 0 0 24px rgba(103, 232, 249, 0.25);
+      direction: ltr;
+    }
+
+    .date-line {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Countdown Box */
+    .countdown-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 60%;
+      background: linear-gradient(90deg, var(--accent-teal), var(--accent-gold));
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .countdown-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .remaining-time {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      direction: ltr;
+    }
+
+    /* Prayer List */
+    .prayer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .prayer-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .prayer-row.next-prayer {
+      background: linear-gradient(90deg, rgba(230, 184, 76, 0.22), rgba(20, 184, 166, 0.14));
+      border: 1px solid rgba(230, 184, 76, 0.65);
+      box-shadow: 0 0 22px rgba(230, 184, 76, 0.14);
+    }
+
+    .prayer-name-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prayer-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .badge-next {
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--accent-gold);
+      border: 1px solid rgba(230, 184, 76, 0.45);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .prayer-time-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      direction: ltr;
+    }
+
+    .prayer-time {
+      font-size: 1.12rem;
+      font-weight: 700;
+    }
+
+    .bell-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent-gold);
+      font-size: 1rem;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    /* Monthly Schedule Button & Drawer */
+    .monthly-toggle {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .monthly-toggle:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .monthly-panel {
+      display: none;
+      margin-top: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 12px;
+      overflow-x: auto;
+    }
+
+    .monthly-panel.open {
+      display: block;
+    }
+
+    .monthly-header {
+      text-align: center;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      direction: ltr;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 8px 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    tr.today-row {
+      background: rgba(20, 184, 166, 0.24);
+      color: #5eead4;
+      font-weight: 700;
+    }
+
+    .footer-credit {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="location-bar">
+      <div class="location-pill">
+        <span>📍 کاتەکانی بانگ لە</span>
+        <span class="city">قەڵادزێ</span>
+        <span>‹</span>
+      </div>
+    </div>
+
+    <div class="clock-section">
+      <div class="live-clock" id="liveClock">00:00:00</div>
+      <div class="date-line" id="dateLine">هەینی، ٢٠/١١/٢٠٢٦ • ١٠ ی جمادی الثانية ١٤٤٨</div>
+    </div>
+
+    <div class="countdown-card">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="countdown-meta">
+        <span id="prevLabel">خەوتنان 06:15</span>
+        <span class="remaining-time" id="remainingTime">00:00:00</span>
+        <span id="nextLabel">بەیانی 05:19</span>
+      </div>
+    </div>
+
+    <div class="prayer-list" id="prayerList"></div>
+
+    <button class="monthly-toggle" id="monthlyToggle" type="button">
+      <span>🗓️ کاتەکانی مانگانە (تشرینی دووەم - 11)</span>
+      <span id="toggleArrow">‹</span>
+    </button>
+
+    <div class="monthly-panel" id="monthlyPanel">
+      <div class="monthly-header">تشرینی دووەم (11) — قەڵادزێ</div>
+      <table>
+        <thead>
+          <tr>
+            <th>بەروار</th>
+            <th>بەیانی</th>
+            <th>خۆرهەڵات</th>
+            <th>نیوەڕۆ</th>
+            <th>عەسر</th>
+            <th>شێوان</th>
+            <th>خەوتنان</th>
+          </tr>
+        </thead>
+        <tbody id="monthlyTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="footer-credit">کاتی بانگی قەڵادزێ • Hama Dev</div>
+  </div>
+
+  <script>
+    // خشتەی تشرینی دووەم (10-11 تا 30-11) بەپێی داتای وێنەکە
+    // [day, fajr, sunrise, dhuhr, asr, maghrib, isha] (24-hour format for calculation)
+    const novemberSchedule = [
+      ["10-11", "05:08", "06:22", "11:49", "14:36", "17:05", "18:22"],
+      ["11-11", "05:09", "06:21", "11:49", "14:36", "17:04", "18:21"],
+      ["12-11", "05:10", "06:20", "11:49", "14:35", "17:03", "18:20"],
+      ["13-11", "05:11", "06:20", "11:50", "14:34", "17:03", "18:20"],
+      ["14-11", "05:12", "06:19", "11:50", "14:34", "17:02", "18:19"],
+      ["15-11", "05:13", "06:18", "11:50", "14:33", "17:01", "18:18"],
+      ["16-11", "05:14", "06:18", "11:50", "14:33", "17:01", "18:18"],
+      ["17-11", "05:15", "06:17", "11:51", "14:32", "17:00", "18:17"],
+      ["18-11", "05:16", "06:16", "11:51", "14:32", "16:59", "18:16"],
+      ["19-11", "05:17", "06:16", "11:51", "14:31", "16:59", "18:16"],
+      ["20-11", "05:18", "06:15", "11:51", "14:31", "16:58", "18:15"],
+      ["21-11", "05:19", "06:15", "11:51", "14:31", "16:58", "18:15"],
+      ["22-11", "05:20", "06:15", "11:52", "14:30", "16:57", "18:15"],
+      ["23-11", "05:20", "06:15", "11:52", "14:30", "16:57", "18:15"],
+      ["24-11", "05:21", "06:15", "11:52", "14:30", "16:57", "18:15"],
+      ["25-11", "05:22", "06:14", "11:53", "14:30", "16:56", "18:14"],
+      ["26-11", "05:23", "06:14", "11:53", "14:29", "16:56", "18:14"],
+      ["27-11", "05:24", "06:14", "11:53", "14:29", "16:56", "18:14"],
+      ["28-11", "05:25", "06:14", "11:53", "14:29", "16:56", "18:14"],
+      ["29-11", "05:25", "06:14", "11:54", "14:29", "16:55", "18:14"],
+      ["30-11", "05:26", "06:14", "11:54", "14:29", "16:55", "18:14"]
+    ];
+
+    const prayerMeta = [
+      { key: "fajr", name: "بەیانی", hasBell: true },
+      { key: "sunrise", name: "ڕۆژهەڵات", hasBell: false },
+      { key: "dhuhr", name: "نیوەڕۆ", hasBell: true },
+      { key: "asr", name: "عەسر", hasBell: true },
+      { key: "maghrib", name: "شێوان", hasBell: true },
+      { key: "isha", name: "خەوتنان", hasBell: true }
+    ];
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function to12HourDisplay(time24) {
+      const [h, m] = time24.split(":").map(Number);
+      const h12 = h % 12 === 0 ? 12 : h % 12;
+      return `${pad(h12)}:${pad(m)}`;
+    }
+
+    function getTodayEntry(now) {
+      const key = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}`;
+      return novemberSchedule.find(row => row[0] === key) || novemberSchedule[10]; // 20-11 default
+    }
+
+    function buildMonthlyTable(todayKey) {
+      const tbody = document.getElementById("monthlyTableBody");
+      tbody.innerHTML = "";
+      novemberSchedule.forEach(row => {
+        const [dateStr, fajr, sunrise, dhuhr, asr, maghrib, isha] = row;
+        const tr = document.createElement("tr");
+        if (dateStr === todayKey) tr.classList.add("today-row");
+        tr.innerHTML = `
+          <td>${dateStr}</td>
+          <td>${fajr}</td>
+          <td>${sunrise}</td>
+          <td>${dhuhr}</td>
+          <td>${to12HourDisplay(asr)}</td>
+          <td>${to12HourDisplay(maghrib)}</td>
+          <td>${to12HourDisplay(isha)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateDashboard() {
+      const now = new Date();
+      document.getElementById("liveClock").textContent =
+        `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+      const entry = getTodayEntry(now);
+      const times24 = {
+        fajr: entry[1],
+        sunrise: entry[2],
+        dhuhr: entry[3],
+        asr: entry[4],
+        maghrib: entry[5],
+        isha: entry[6]
+      };
+
+      const prayerListEl = document.getElementById("prayerList");
+      prayerListEl.innerHTML = "";
+
+      const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+      const events = prayerMeta.map(p => {
+        const [h, m] = times24[p.key].split(":").map(Number);
+        return { ...p, time24: times24[p.key], sec: h * 3600 + m * 60 };
+      });
+
+      let nextIndex = events.findIndex(ev => ev.sec > nowSeconds);
+      let prevEvent, nextEvent, diffSec, totalSpanSec;
+
+      if (nextIndex === -1) {
+        // دوای خەوتنان -> بانگی بەیانی سبەی
+        nextIndex = 0;
+        prevEvent = events[events.length - 1];
+        const tomorrowIndex = Math.min(novemberSchedule.length - 1, novemberSchedule.findIndex(r => r[0] === entry[0]) + 1);
+        const tomorrowFajr = novemberSchedule[tomorrowIndex][1];
+        const [fh, fm] = tomorrowFajr.split(":").map(Number);
+        const targetSec = 24 * 3600 + fh * 3600 + fm * 60;
+        nextEvent = { ...events[0], time24: tomorrowFajr, sec: targetSec };
+        diffSec = targetSec - nowSeconds;
+        totalSpanSec = targetSec - prevEvent.sec;
+      } else {
+        nextEvent = events[nextIndex];
+        prevEvent = nextIndex === 0
+          ? { name: "خەوتنان", time24: times24.isha, sec: 0 }
+          : events[nextIndex - 1];
+        diffSec = nextEvent.sec - nowSeconds;
+        totalSpanSec = Math.max(1, nextEvent.sec - prevEvent.sec);
+      }
+
+      const remH = Math.floor(diffSec / 3600);
+      const remM = Math.floor((diffSec % 3600) / 60);
+      const remS = diffSec % 60;
+      document.getElementById("remainingTime").textContent =
+        `${pad(remH)}:${pad(remM)}:${pad(remS)}`;
+
+      const elapsed = Math.max(0, Math.min(totalSpanSec, nowSeconds - prevEvent.sec));
+      const pct = Math.min(100, Math.max(6, (elapsed / totalSpanSec) * 100));
+      document.getElementById("progressFill").style.width = `${pct}%`;
+
+      document.getElementById("prevLabel").textContent =
+        `${prevEvent.name} ${to12HourDisplay(prevEvent.time24)}`;
+      document.getElementById("nextLabel").textContent =
+        `${nextEvent.name} ${to12HourDisplay(nextEvent.time24)}`;
+
+      events.forEach((ev, idx) => {
+        const isNext = idx === nextIndex;
+        const row = document.createElement("div");
+        row.className = `prayer-row ${isNext ? "next-prayer" : ""}`;
+        const displayTime = (ev.key === "fajr" || ev.key === "sunrise" || ev.key === "dhuhr")
+          ? ev.time24
+          : to12HourDisplay(ev.time24);
+
+        row.innerHTML = `
+          <div class="prayer-name-group">
+            <span class="prayer-name">${ev.name}</span>
+            ${isNext ? `<span class="badge-next">• بانگی داهاتوو</span>` : ""}
+          </div>
+          <div class="prayer-time-group">
+            <span class="prayer-time">${displayTime}</span>
+            ${ev.hasBell ? `<button class="bell-btn" title="ئاگادارکردنەوە">🔔</button>` : ""}
+          </div>
+        `;
+        prayerListEl.appendChild(row);
+      });
+    }
+
+    document.getElementById("monthlyToggle").addEventListener("click", () => {
+      const panel = document.getElementById("monthlyPanel");
+      const arrow = document.getElementById("toggleArrow");
+      const isOpen = panel.classList.toggle("open");
+      arrow.textContent = isOpen ? "⌄" : "‹";
+    });
+
+    const initialEntry = getTodayEntry(new Date());
+    buildMonthlyTable(initialEntry[0]);
+    updateDashboard();
+    setInterval(updateDashboard, 1000);
+  </script>
+</body>
+</html>
