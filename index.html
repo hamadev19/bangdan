@@ -8,17 +8,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="بانگی کوردستان" />
-  <meta name="description" content="بەرنامەی بانگ و کاتەکانی نوێژ لە کوردستان، ڕۆژژمێری کۆچی و قۆناغەکانی مانگ، قیبلەنما، تەسبیح و زیکرەکان" />
+  <meta name="description" content="بەرنامەی بانگ و کاتەکانی نوێژ لە هەموو شارەکانی کوردستان، دەنگی اللە أکبر، ڕۆژژمێری کۆچی و قۆناغەکانی مانگ، قیبلەنما، تەسبیح و زیکرەکان" />
   <title>بەرنامەی بانگ و کاتەکانی کوردستان</title>
 
-  <!-- Dynamic PWA Manifest & Apple Touch Icon placeholders -->
+  <!-- Dynamic PWA Manifest & Apple Touch Icon links -->
   <link id="pwaManifestLink" rel="manifest" href="" />
   <link id="pwaAppleIconLink" rel="apple-touch-icon" href="" />
 
-  <!-- Load Tailwind CSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Noto Sans Arabic & Inter for crisp Sorani Kurdish & Latin numerals -->
+  <!-- Google Fonts: Noto Sans Arabic, Noto Naskh Arabic & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -45,36 +45,38 @@
   </script>
 
   <style>
-    /* Custom scrollbar & ambient background aesthetics */
+    /* Base obsidian-emerald-gold styling & subtle Islamic geometry */
     body {
       background-color: #071310;
       color: #ecfdf5;
       font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
       overflow-x: hidden;
       background-image:
-        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.10) 0%, transparent 40%),
-        radial-gradient(circle at 50% 95%, rgba(6, 78, 59, 0.25) 0%, transparent 55%);
+        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 95%, rgba(6, 78, 59, 0.28) 0%, transparent 55%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2310b981' stroke-opacity='0.045' stroke-width='1'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3C/g%3E%3C/svg%3E");
       min-height: 100vh;
     }
 
     .glass-panel {
-      background: rgba(13, 34, 28, 0.78);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      background: rgba(13, 34, 28, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.55);
     }
 
     .glass-gold {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(13, 34, 28, 0.88));
-      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(13, 34, 28, 0.92));
+      border: 1px solid rgba(245, 158, 11, 0.38);
+      box-shadow: 0 12px 34px -10px rgba(245, 158, 11, 0.18);
     }
 
     .tabular-nums {
       font-variant-numeric: tabular-nums;
     }
 
-    /* Subtle pulse animation for active next prayer */
     @keyframes softGlow {
       0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.28); }
       50% { box-shadow: 0 0 24px 2px rgba(16, 185, 129, 0.22); }
@@ -86,14 +88,25 @@
 
     @keyframes takbirPulse {
       0%, 100% { transform: scale(1); text-shadow: 0 0 18px rgba(245, 158, 11, 0.35); }
-      50% { transform: scale(1.03); text-shadow: 0 0 32px rgba(245, 158, 11, 0.7); }
+      50% { transform: scale(1.04); text-shadow: 0 0 36px rgba(245, 158, 11, 0.8); }
     }
 
     .takbir-animate {
       animation: takbirPulse 2.2s infinite ease-in-out;
     }
 
-    /* Custom range slider styling */
+    @keyframes audioWave {
+      0%, 100% { height: 6px; opacity: 0.45; }
+      50% { height: 22px; opacity: 1; }
+    }
+
+    .wave-bar {
+      width: 4px;
+      border-radius: 9999px;
+      background: linear-gradient(to top, #10b981, #fbbf24);
+      animation: audioWave 1.1s infinite ease-in-out;
+    }
+
     input[type="range"].moon-slider,
     input[type="range"].volume-slider {
       -webkit-appearance: none;
@@ -103,6 +116,7 @@
       background: rgba(16, 185, 129, 0.22);
       outline: none;
     }
+
     input[type="range"].moon-slider::-webkit-slider-thumb,
     input[type="range"].volume-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -116,7 +130,6 @@
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
     }
 
-    /* Hide scrollbars on horizontal pill strips while keeping scrollability */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -126,9 +139,9 @@
     }
   </style>
 </head>
-<body class="selection:bg-emerald-500/30 selection:text-emerald-200 pb-12">
+<body class="selection:bg-emerald-500/30 selection:text-emerald-200 pb-24 sm:pb-12">
 
-  <!-- Toast / Status Notification Banner (replaces alert/confirm) -->
+  <!-- Toast Banner (replaces alert/confirm) -->
   <div id="toastBanner" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 opacity-0 pointer-events-none max-w-md w-[92%]">
     <div id="toastInner" class="glass-panel border-emerald-400/50 text-emerald-100 px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-3 text-sm">
       <span id="toastMessage"></span>
@@ -136,7 +149,7 @@
     </div>
   </div>
 
-  <!-- Full-Screen / Prominent Adhan ("اللە أکبر") Alert Modal -->
+  <!-- Adhan ("اللە أکبر") Alert Modal -->
   <div id="adhanAlertModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/90 backdrop-blur-md">
     <div class="max-w-lg w-full glass-gold rounded-3xl p-6 sm:p-8 border-2 border-amber-400/50 shadow-2xl space-y-6 text-center relative">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-bold">
@@ -149,7 +162,7 @@
           اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ
         </div>
         <div class="text-sm font-bold text-amber-200/90">
-          اللە أکبر • اللە أکبر
+          اللە أکبر • اللە أکبر • اللە أکبر • اللە أکبر
         </div>
         <div id="adhanModalPrayerName" class="text-2xl sm:text-3xl font-extrabold text-white pt-1">
           --
@@ -159,8 +172,16 @@
         </div>
       </div>
 
-      <!-- Live Adhan Phrase & Audio Status -->
-      <div class="bg-obsidian/80 border border-emerald-500/25 rounded-2xl p-4 space-y-1.5">
+      <div class="bg-obsidian/85 border border-emerald-500/25 rounded-2xl p-4 space-y-2">
+        <div id="adhanWaveVisualizer" class="flex items-center justify-center gap-1.5 h-6">
+          <span class="wave-bar" style="animation-delay: 0.0s"></span>
+          <span class="wave-bar" style="animation-delay: 0.15s"></span>
+          <span class="wave-bar" style="animation-delay: 0.3s"></span>
+          <span class="wave-bar" style="animation-delay: 0.45s"></span>
+          <span class="wave-bar" style="animation-delay: 0.2s"></span>
+          <span class="wave-bar" style="animation-delay: 0.35s"></span>
+          <span class="wave-bar" style="animation-delay: 0.1s"></span>
+        </div>
         <div id="adhanPhraseIndicator" class="text-xs sm:text-sm font-bold text-emerald-300">
           خەریکی لێدانی بانگە...
         </div>
@@ -169,7 +190,6 @@
         </div>
       </div>
 
-      <!-- Modal Actions -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
         <button id="stopAdhanBtn" type="button" class="w-full sm:w-auto flex-1 px-6 py-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm shadow-lg shadow-rose-950/60 transition active:scale-95 flex items-center justify-center gap-2">
           <span>⏹️</span>
@@ -182,7 +202,7 @@
     </div>
   </div>
 
-  <!-- PWA Installation Guide Modal (Android + iOS Safari + Offline Info) -->
+  <!-- PWA Installation Guide Modal -->
   <div id="pwaGuideModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md">
     <div class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-7 border border-emerald-400/35 shadow-2xl space-y-5">
       <div class="flex items-center justify-between gap-3 border-b border-emerald-500/20 pb-3.5">
@@ -206,13 +226,12 @@
 
         <div class="bg-obsidian/75 rounded-2xl p-4 border border-emerald-500/20 space-y-1">
           <div class="font-bold text-amber-300">٢. ئایفۆن و ئایپاد (iOS Safari):</div>
-          <p>لە وێبگەڕی Safari دوگمەی <strong>Share (شەیرکردن ⬆️)</strong> دابگرە، پاشان بڕۆ خوارەوە و <strong>«Add to Home Screen»</strong> هەڵبژێرە.</p>
+          <p>لە وێبگەڕی Safari دوگمەی <strong>Share (شەیرکردن)</strong> دابگرە، پاشان بڕۆ خوارەوە و <strong>«Add to Home Screen»</strong> هەڵبژێرە.</p>
         </div>
 
         <div class="bg-emerald-950/60 rounded-2xl p-4 border border-emerald-500/20 space-y-1 text-xs text-emerald-200/85">
-          <div class="font-bold text-emerald-300">٣. تێبینی گرنگ دەربارەی ئۆفلاین و دەنگی بانگ:</div>
-          <p>• Service Worker بۆ کاشکردنی فایلی بەرنامە چالاک دەبێت کاتێک بەرنامەکە لەسەر <strong>http / https</strong> بکرێتەوە.</p>
-          <p>• لە وێبگەڕەکانی مۆبایلدا بۆ گەرەنتی بیستنی تەواوی دەنگی بانگ، پێشتر کرتەیەک لەسەر دوگمەی تاقیکردنەوە یان چالاککردنی دەنگ بکە و لاپەڕەکە کراوە بهێڵەرەوە.</p>
+          <div class="font-bold text-emerald-300">٣. تێبینی دەربارەی دەنگی بانگ (اللە أکبر):</div>
+          <p>• دەنگی بانگ بە شێوازی مەقامی ئیسلامی + خوێندنەوەی عەرەبی «اللَّهُ أَكْبَرُ» بە بێ پێویستی بە ئینتەرنێت کار دەکات، و هەروەها دەنگی سترێمیش لە کاتی ئۆنلایندا پشتگیری کراوە.</p>
         </div>
       </div>
 
@@ -230,7 +249,6 @@
       <!-- Brand Identity -->
       <div class="flex items-center gap-3">
         <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-800 flex items-center justify-center shadow-lg shadow-emerald-900/50 border border-emerald-300/30">
-          <!-- Crescent & Star SVG Logo -->
           <svg class="w-6 h-6 text-amber-300" viewBox="0 0 24 24" fill="currentColor">
             <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
             <circle cx="17.5" cy="6.5" r="1.3" fill="#fde68a"/>
@@ -253,8 +271,8 @@
         </div>
       </div>
 
-      <!-- Quick Controls: City Selector + GPS + Audio Toggle + PWA Install -->
-      <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap sm:flex-nowrap">
+      <!-- Quick Controls: City Selector + GPS + Sound Toggle + PWA Install -->
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
         <select id="citySelect" aria-label="هەڵبژاردنی شار" class="flex-1 sm:flex-initial bg-emerald-950/90 text-emerald-100 border border-emerald-500/35 rounded-xl px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer">
           <!-- Populated dynamically -->
         </select>
@@ -273,15 +291,15 @@
           <span id="soundLabel" class="hidden md:inline">دەنگ چالاکە</span>
         </button>
 
-        <button id="pwaHeaderBtn" type="button" title="دامەزراندنی بەرنامە وەک ئەپ (PWA)" class="px-3 py-2 rounded-xl bg-gradient-to-l from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 border border-amber-200/40 transition active:scale-95 flex items-center gap-1.5 text-xs font-extrabold shadow-md shadow-amber-500/15">
+        <button id="pwaHeaderBtn" type="button" title="دامەزراندنی ئەپ (PWA)" class="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition active:scale-95 flex items-center gap-1.5 shadow-md shadow-amber-500/20">
           <span>📲</span>
-          <span id="pwaHeaderBtnText">دامەزراندن</span>
+          <span class="hidden sm:inline">دامەزراندن (PWA)</span>
         </button>
       </div>
     </div>
 
-    <!-- Main Navigation Tabs -->
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 pb-2.5 overflow-x-auto no-scrollbar">
+    <!-- Desktop Navigation Tabs -->
+    <nav class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 pb-2.5 overflow-x-auto no-scrollbar">
       <div class="flex items-center gap-1.5 sm:gap-2 min-w-max" role="tablist">
         <button data-tab="prayers" type="button" class="nav-tab active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20">
           <span>🕌</span>
@@ -315,10 +333,44 @@
     </nav>
   </header>
 
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav aria-label="مێنیوی مۆبایل" class="sm:hidden fixed bottom-0 inset-x-0 z-40 glass-panel border-t border-emerald-500/30 px-1.5 py-1.5 overflow-x-auto no-scrollbar">
+    <div class="flex items-center justify-between gap-1 min-w-max mx-auto">
+      <button data-tab="prayers" type="button" class="nav-tab-mobile active flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-extrabold bg-emerald-500 text-slate-950 transition">
+        <span class="text-base leading-none mb-0.5">🕌</span>
+        <span>بانگ</span>
+      </button>
+      <button data-tab="moon" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">🌙</span>
+        <span>مانگ</span>
+      </button>
+      <button data-tab="qibla" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">🧭</span>
+        <span>قیبلە</span>
+      </button>
+      <button data-tab="tasbih" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">📿</span>
+        <span>تەسبیح</span>
+      </button>
+      <button data-tab="azkar" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">📖</span>
+        <span>زیکر</span>
+      </button>
+      <button data-tab="names" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">✨</span>
+        <span>٩٩ ناو</span>
+      </button>
+      <button data-tab="tracker" type="button" class="nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition">
+        <span class="text-base leading-none mb-0.5">✅</span>
+        <span>تۆمار</span>
+      </button>
+    </div>
+  </nav>
+
   <!-- Main Content Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
 
-    <!-- Compact PWA Install Banner (Shown when not yet in standalone mode) -->
+    <!-- Compact PWA Install Banner -->
     <div id="pwaInstallBanner" class="glass-panel rounded-2xl px-4 py-3 border border-amber-400/35 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <div class="flex items-center gap-3 text-xs sm:text-sm">
         <span class="text-xl">📲</span>
@@ -362,9 +414,10 @@
             <div>
               <div id="nextPrayerName" class="text-3xl sm:text-4xl font-extrabold text-white mb-1">--</div>
               <div id="nextPrayerTimeText" class="text-sm text-amber-300 font-medium">کات: --:--</div>
+              <div id="remainingTimeSummary" class="text-xs text-emerald-200/90 mt-1">چەندی ماوە بۆ بانگ: --</div>
             </div>
 
-            <!-- Countdown Timer -->
+            <!-- Live Remaining Countdown Box -->
             <div class="bg-obsidian/80 border border-amber-400/30 rounded-2xl px-5 py-3.5 text-center">
               <div class="text-[11px] text-emerald-300/80 mb-1">کاتی ماوە بۆ بانگ</div>
               <div id="countdownTimer" class="text-2xl sm:text-3xl font-extrabold text-amber-400 tabular-nums tracking-wider" dir="ltr">
@@ -385,7 +438,7 @@
           </div>
         </div>
 
-        <!-- Live Clock, Hijri Summary & Calculation Settings Card -->
+        <!-- Live Clock, Hijri Summary & Calculation/Adhan Test Controls -->
         <div class="lg:col-span-5 glass-panel rounded-3xl p-5 sm:p-7 flex flex-col justify-between space-y-5">
           <div class="flex items-start justify-between gap-3">
             <div>
@@ -400,10 +453,10 @@
             </div>
           </div>
 
-          <!-- Madhhab & Sound Test Controls -->
+          <!-- Madhhab & Adhan ("اللە أکبر") Test Controls -->
           <div class="pt-4 border-t border-emerald-500/20 space-y-3">
             <div class="flex items-center justify-between gap-2">
-              <span class="text-xs font-semibold text-emerald-200">مەزهەبی عەسر (عەسر):</span>
+              <span class="text-xs font-semibold text-emerald-200">مەزهەبی عەسر:</span>
               <div class="inline-flex rounded-xl bg-obsidian/90 p-1 border border-emerald-500/25">
                 <button id="madhhabShafii" type="button" class="px-3 py-1 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950">
                   شافیعی / جومهوور
@@ -416,8 +469,8 @@
 
             <div class="flex items-center justify-between gap-2 flex-wrap">
               <span class="text-xs text-emerald-300/80">دەنگی بانگ (اللە أکبر):</span>
-              <div class="flex items-center gap-2">
-                <button id="testAdhanBtn" type="button" class="px-3.5 py-1.5 rounded-xl bg-emerald-900/70 hover:bg-emerald-800 text-amber-300 border border-amber-400/30 text-xs font-bold transition active:scale-95">
+              <div class="flex items-center gap-2 flex-wrap">
+                <button id="testAdhanBtn" type="button" class="px-3.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition active:scale-95 shadow">
                   🔔 تاقیکردنەوەی بانگ (اللە أکبر)
                 </button>
                 <button id="quickStopAdhanBtn" type="button" class="px-3 py-1.5 rounded-xl bg-rose-950/70 hover:bg-rose-900 text-rose-200 border border-rose-500/30 text-xs font-bold transition active:scale-95">
@@ -459,7 +512,7 @@
 
           <div class="flex flex-wrap items-center gap-2.5">
             <button id="requestNotifPermBtn" type="button" class="px-3.5 py-2 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-100 border border-emerald-500/35 text-xs font-bold transition active:scale-95">
-              🔔 داواکردنی مۆڵەتی ئاگادارکردنەوە
+              🔔 مۆڵەتی ئاگادارکردنەوە
             </button>
             <span id="notifPermStatus" class="text-[11px] px-2.5 py-1 rounded-full bg-obsidian/80 text-amber-300 border border-amber-400/25 font-semibold">
               دۆخی مۆڵەت: --
@@ -469,31 +522,29 @@
 
         <!-- Adhan Mode & Volume Row -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Adhan Style / Mode Selector -->
           <div class="bg-obsidian/75 rounded-2xl p-4 border border-emerald-500/20 space-y-2.5">
             <label for="adhanStyleSelect" class="block text-xs font-bold text-amber-300">
               شێوازی دەنگی بانگ (اللە أکبر):
             </label>
             <select id="adhanStyleSelect" class="w-full bg-emerald-950/90 text-emerald-100 border border-emerald-500/35 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer">
-              <option value="takbir_maqam">تەکبیر و مەقامی بانگ («اللە أکبر اللە أکبر») — دەنگی ناوخۆیی بێ ئینتەرنێت</option>
-              <option value="full_adhan_synth">بانگی تەواوی مەقامی («اللە أکبر» + شەهادەت + حەیەلە) — دەنگی ناوخۆیی</option>
-              <option value="makkah_stream_fallback">بانگی مەککە (دەنگی ئۆنلاین + خۆکار دەگۆڕێت بۆ دەنگی ناوخۆیی)</option>
-              <option value="madinah_stream_fallback">بانگی مەدینە (دەنگی ئۆنلاین + خۆکار دەگۆڕێت بۆ دەنگی ناوخۆیی)</option>
+              <option value="takbir_maqam">تەکبیر و مەقامی بانگ («اللە أکبر اللە أکبر») — خێرا و بێ ئینتەرنێت</option>
+              <option value="full_adhan_synth">بانگی مەقامی («اللە أکبر» + شەهادەت + حەیەلە) — بێ ئینتەرنێت</option>
+              <option value="makkah_stream_fallback">بانگی مەککەی پیرۆز (سترێم + خۆکار دەنگی اللە أکبر)</option>
+              <option value="madinah_stream_fallback">بانگی مەدینەی پیرۆز (سترێم + خۆکار دەنگی اللە أکبر)</option>
             </select>
             <p class="text-[11px] text-emerald-300/70">
-              ئەگەر ئینتەرنێت نەبێت یان دەنگی دەرەکی ڕابگیرێت، سیستەمەکە بە شێوەی خۆکار دەنگی مەقامی «اللە أکبر» لێدەدات.
+              دەنگی دەستکردی «اللە أکبر» بە Web Audio و خوێندنەوەی عەرەبی کار دەکات، و ئەگەر سترێم نەکرێتەوە خۆکار دەگۆڕێت بۆ دەنگی ناوخۆیی.
             </p>
           </div>
 
-          <!-- Volume Control -->
           <div class="bg-obsidian/75 rounded-2xl p-4 border border-emerald-500/20 flex flex-col justify-between space-y-3">
             <div class="flex items-center justify-between">
               <label for="adhanVolumeSlider" class="text-xs font-bold text-amber-300">
                 ئاستی دەنگی بانگ:
               </label>
-              <span id="adhanVolumeValue" class="text-sm font-extrabold text-white tabular-nums">80%</span>
+              <span id="adhanVolumeValue" class="text-sm font-extrabold text-white tabular-nums">85%</span>
             </div>
-            <input id="adhanVolumeSlider" type="range" min="0" max="100" step="5" value="80" class="volume-slider w-full" />
+            <input id="adhanVolumeSlider" type="range" min="0" max="100" step="5" value="85" class="volume-slider w-full" />
             <div class="flex justify-between text-[11px] text-emerald-300/70">
               <span>بێدەنگ (0%)</span>
               <span>مامناوەند (50%)</span>
@@ -513,7 +564,7 @@
         </div>
       </div>
 
-      <!-- Fine-Tuning Offset & Quick City Strip -->
+      <!-- Fine-Tuning Offset Control -->
       <div class="glass-panel rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div class="space-y-1">
           <h3 class="text-sm font-bold text-emerald-200">ڕێکخستنی وردی خولەک (بۆ هاوتابوون لەگەڵ مزگەوتی ناوچەکەت)</h3>
@@ -537,7 +588,6 @@
     <!-- ===================================================================== -->
     <section id="tab-moon" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Interactive Moon Visualizer Card -->
         <div class="lg:col-span-6 glass-panel rounded-3xl p-6 flex flex-col items-center text-center space-y-5">
           <div class="w-full flex items-center justify-between">
             <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
@@ -546,7 +596,6 @@
             <span id="moonDayLabel" class="text-xs text-emerald-300 font-semibold">شەوی -- مانگ</span>
           </div>
 
-          <!-- Canvas Moon Renderer -->
           <div class="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center">
             <div class="absolute inset-0 rounded-full bg-amber-400/10 blur-2xl"></div>
             <canvas id="moonCanvas" class="w-full h-full rounded-full shadow-2xl shadow-amber-500/15"></canvas>
@@ -557,7 +606,6 @@
             <p id="moonPhaseDesc" class="text-xs sm:text-sm text-emerald-200/80 mt-1 max-w-md">--</p>
           </div>
 
-          <!-- Illumination & Lunar Age Stats -->
           <div class="grid grid-cols-2 gap-3 w-full pt-2">
             <div class="bg-obsidian/80 rounded-2xl p-3 border border-emerald-500/20">
               <div class="text-[11px] text-emerald-300/75">ڕێژەی ڕووناکی مانگ</div>
@@ -569,7 +617,6 @@
             </div>
           </div>
 
-          <!-- Interactive Lunar Cycle Slider -->
           <div class="w-full space-y-2 pt-2">
             <div class="flex justify-between text-xs text-emerald-200/80">
               <span>گەڕان بەناو قۆناغەکانی مانگدا (١ تا ٢٩.٥ ڕۆژ)</span>
@@ -579,7 +626,6 @@
           </div>
         </div>
 
-        <!-- Hijri Calendar & Sighting Adjustment Card -->
         <div class="lg:col-span-6 glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
@@ -592,13 +638,11 @@
               </span>
             </div>
 
-            <!-- Main Hijri Date Display -->
             <div class="glass-gold rounded-2xl p-5 text-center space-y-1">
               <div id="hijriFullDate" class="text-2xl sm:text-3xl font-extrabold text-amber-300">--</div>
               <div id="gregorianFullDate" class="text-sm text-emerald-100/90">--</div>
             </div>
 
-            <!-- Manual Hijri Day Adjustment (-2 to +2) -->
             <div class="bg-obsidian/80 rounded-2xl p-4 border border-emerald-500/20 space-y-3">
               <div class="flex items-center justify-between">
                 <div>
@@ -618,7 +662,6 @@
             </div>
           </div>
 
-          <!-- 12 Hijri Months Reference -->
           <div class="space-y-2.5">
             <h3 class="text-sm font-bold text-emerald-200">مانگەکانی ساڵی کۆچی</h3>
             <div id="hijriMonthsList" class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
@@ -634,32 +677,25 @@
     <!-- ===================================================================== -->
     <section id="tab-qibla" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        <!-- Compass Dial Card -->
         <div class="lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center space-y-6">
           <div class="text-center">
             <h2 class="text-xl font-extrabold text-white">قیبلەنما بەرەو کەعبەی پیرۆز</h2>
             <p id="qiblaCitySubtitle" class="text-xs text-emerald-300/80 mt-1">--</p>
           </div>
 
-          <!-- Compass Visual -->
           <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-obsidian border-4 border-emerald-500/35 shadow-2xl flex items-center justify-center">
-            <!-- Cardinal Markers -->
             <span class="absolute top-2.5 text-xs font-extrabold text-rose-400">N (باکوور)</span>
             <span class="absolute bottom-2.5 text-xs font-bold text-emerald-300/70">S</span>
             <span class="absolute left-3 text-xs font-bold text-emerald-300/70">W</span>
             <span class="absolute right-3 text-xs font-bold text-emerald-300/70">E</span>
 
-            <!-- Rotating Qibla Pointer Container -->
             <div id="qiblaNeedleContainer" class="absolute inset-4 transition-transform duration-500 ease-out flex flex-col items-center justify-start">
-              <!-- Kaaba Icon at tip -->
               <div class="w-8 h-8 rounded-lg bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center justify-center shadow-lg shadow-amber-500/40 border border-amber-200">
                 🕋
               </div>
-              <!-- Arrow Line -->
               <div class="w-1 flex-1 bg-gradient-to-b from-amber-400 via-emerald-400 to-transparent rounded-full mt-1"></div>
             </div>
 
-            <!-- Center Hub -->
             <div class="w-12 h-12 rounded-full bg-emerald-950 border-2 border-emerald-400 flex items-center justify-center z-10 text-xs font-extrabold text-amber-300 tabular-nums" id="qiblaCenterAngle">
               --°
             </div>
@@ -670,7 +706,6 @@
           </button>
         </div>
 
-        <!-- Qibla Metrics & Explanation Card -->
         <div class="lg:col-span-6 glass-panel rounded-3xl p-6 space-y-5">
           <h3 class="text-lg font-extrabold text-white">زانیاری وردی قیبلە</h3>
 
@@ -705,7 +740,6 @@
             <p class="text-xs text-emerald-300/80">زیکر بکە و ژمارەی خوێندنەکانت بپارێزە</p>
           </div>
 
-          <!-- Target Selector -->
           <div class="flex items-center gap-1.5 bg-obsidian/90 p-1 rounded-xl border border-emerald-500/25">
             <span class="text-[11px] text-emerald-300/70 px-2">ئامانج:</span>
             <button data-target="33" type="button" class="tasbih-target px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950">33</button>
@@ -715,18 +749,15 @@
           </div>
         </div>
 
-        <!-- Preset Zikr Pills -->
         <div id="tasbihPresets" class="flex flex-wrap gap-2">
           <!-- Populated dynamically -->
         </div>
 
-        <!-- Active Zikr Display -->
         <div class="glass-gold rounded-2xl p-4 text-center">
           <div id="activeTasbihArabic" class="font-naskh text-2xl sm:text-3xl font-bold text-white">--</div>
           <div id="activeTasbihKurdish" class="text-xs text-amber-200/90 mt-1">--</div>
         </div>
 
-        <!-- Big Tap Counter Button -->
         <div class="flex flex-col items-center justify-center py-2">
           <button id="tasbihTapBtn" type="button" class="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-emerald-500 via-emerald-700 to-emerald-950 hover:from-emerald-400 hover:to-emerald-900 border-4 border-emerald-300/40 shadow-2xl shadow-emerald-900/70 flex flex-col items-center justify-center transition transform active:scale-95 select-none">
             <span class="text-xs font-semibold text-emerald-100/80 mb-1">کرتە بکە</span>
@@ -735,7 +766,6 @@
           </button>
         </div>
 
-        <!-- Bottom Action Bar -->
         <div class="flex items-center justify-between pt-2 border-t border-emerald-500/20">
           <div class="text-xs text-emerald-300/80">
             کۆی گشتی زیکرەکانی ئەمڕۆ: <span id="tasbihTotalToday" class="font-extrabold text-amber-300 tabular-nums">0</span>
@@ -757,7 +787,6 @@
           <p class="text-xs text-emerald-300/80">زیکرەکانی بەیانیان، ئێواران، دوای نوێژ و دوعای هەڵبژێردراو</p>
         </div>
 
-        <!-- Category Filter Tabs -->
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
           <button data-azkar-cat="morning" type="button" class="azkar-cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 whitespace-nowrap">بەیانیان</button>
           <button data-azkar-cat="evening" type="button" class="azkar-cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500/25 whitespace-nowrap">ئێواران</button>
@@ -796,7 +825,6 @@
     <!-- ===================================================================== -->
     <section id="tab-tracker" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Daily Fard Prayer Tracker -->
         <div class="lg:col-span-5 glass-panel rounded-3xl p-6 space-y-5">
           <div class="flex items-center justify-between">
             <div>
@@ -815,7 +843,6 @@
           </div>
         </div>
 
-        <!-- Islamic Occasions & Important Dates -->
         <div class="lg:col-span-7 glass-panel rounded-3xl p-6 space-y-4">
           <div>
             <h2 class="text-lg font-extrabold text-white">بۆنە و شەوە پیرۆزەکانی ئیسلام</h2>
@@ -838,7 +865,7 @@
 
   <script>
     /* =====================================================================
-       1. KURDISTAN CITIES & TOWNS DATA
+       1. KURDISTAN CITIES & CONSTANTS
        ===================================================================== */
     const KURDISTAN_CITIES = [
       { id: 'erbil', name: 'هەولێر', en: 'Erbil', lat: 36.1911, lon: 44.0092, tz: 3 },
@@ -896,55 +923,65 @@
     /* =====================================================================
        2. STATE MANAGEMENT (with localStorage persistence)
        ===================================================================== */
-    const STORAGE_KEY = 'kurdistan_adhan_app_v2';
+    const STORAGE_KEY = 'kurdistan_adhan_app_v3';
 
-    const defaultState = {
-      activeTab: 'prayers',
-      cityId: 'slemani',
-      customLocation: null, // { name, lat, lon, tz }
-      madhhab: 'shafii', // 'shafii' | 'hanafi'
-      offsetMinutes: 0,
-      soundEnabled: true,
-      adhanStyle: 'takbir_maqam', // 'takbir_maqam' | 'full_adhan_synth' | 'makkah_stream_fallback' | 'madinah_stream_fallback'
-      adhanVolume: 80, // 0..100
-      perPrayerAlarm: {
-        fajr: true,
-        sunrise: false,
-        dhuhr: true,
-        asr: true,
-        maghrib: true,
-        isha: true
-      },
-      pwaBannerDismissed: false,
-      hijriAdj: 0, // -2 to +2
-      tasbihPresetIndex: 0,
-      tasbihTarget: 33,
-      tasbihCount: 0,
-      tasbihTodayTotal: 0,
-      tasbihDateKey: '',
-      azkarCategory: 'morning',
-      azkarDoneCounts: {},
-      prayerChecklistDate: '',
-      prayerChecklist: { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false }
-    };
+    function getInitialState() {
+      return {
+        activeTab: 'prayers',
+        cityId: 'slemani',
+        customLocation: null,
+        madhhab: 'shafii',
+        offsetMinutes: 0,
+        soundEnabled: true,
+        adhanStyle: 'takbir_maqam',
+        adhanVolume: 85,
+        perPrayerAlarm: {
+          fajr: true,
+          sunrise: false,
+          dhuhr: true,
+          asr: true,
+          maghrib: true,
+          isha: true
+        },
+        pwaBannerDismissed: false,
+        hijriAdj: 0,
+        tasbihPresetIndex: 0,
+        tasbihTarget: 33,
+        tasbihCount: 0,
+        tasbihTodayTotal: 0,
+        tasbihDateKey: '',
+        azkarCategory: 'morning',
+        azkarDoneCounts: {},
+        prayerChecklistDate: '',
+        prayerChecklist: { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false }
+      };
+    }
 
     let appState = loadState();
 
     function loadState() {
+      const base = getInitialState();
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return structuredClone(defaultState);
+        if (!raw) return base;
         const parsed = JSON.parse(raw);
         return {
-          ...structuredClone(defaultState),
+          ...base,
           ...parsed,
           perPrayerAlarm: {
-            ...structuredClone(defaultState.perPrayerAlarm),
-            ...(parsed.perPrayerAlarm || {})
+            ...base.perPrayerAlarm,
+            ...(parsed && parsed.perPrayerAlarm ? parsed.perPrayerAlarm : {})
+          },
+          prayerChecklist: {
+            ...base.prayerChecklist,
+            ...(parsed && parsed.prayerChecklist ? parsed.prayerChecklist : {})
+          },
+          azkarDoneCounts: {
+            ...(parsed && parsed.azkarDoneCounts ? parsed.azkarDoneCounts : {})
           }
         };
       } catch (e) {
-        return structuredClone(defaultState);
+        return base;
       }
     }
 
@@ -952,7 +989,7 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
       } catch (e) {
-        console.warn('Could not persist state:', e);
+        // Ignore storage quota or sandbox errors
       }
     }
 
@@ -974,220 +1011,155 @@
     }
 
     /* =====================================================================
-       3. PWA MANIFEST, SERVICE WORKER & INSTALL PROMPT HANDLER
+       3. PWA MANIFEST, SVG ICON & SAFE SERVICE WORKER
        ===================================================================== */
     let deferredInstallPrompt = null;
 
-    function isRunningStandalone() {
-      return (
-        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
-        window.navigator.standalone === true
-      );
-    }
-
-    function createPwaIconDataUrl(size = 512) {
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext('2d');
-
-      const bgGrad = ctx.createLinearGradient(0, 0, size, size);
-      bgGrad.addColorStop(0, '#0d221c');
-      bgGrad.addColorStop(1, '#071310');
-      ctx.fillStyle = bgGrad;
-      ctx.beginPath();
-      ctx.roundRect(0, 0, size, size, size * 0.22);
-      ctx.fill();
-
-      // Subtle emerald ring
-      ctx.strokeStyle = 'rgba(16, 185, 129, 0.45)';
-      ctx.lineWidth = Math.max(4, size * 0.02);
-      ctx.beginPath();
-      ctx.roundRect(size * 0.04, size * 0.04, size * 0.92, size * 0.92, size * 0.19);
-      ctx.stroke();
-
-      // Golden crescent
-      ctx.save();
-      ctx.fillStyle = '#f59e0b';
-      ctx.beginPath();
-      ctx.arc(size * 0.48, size * 0.44, size * 0.23, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#091814';
-      ctx.beginPath();
-      ctx.arc(size * 0.57, size * 0.39, size * 0.19, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      // Star accent
-      ctx.fillStyle = '#fde68a';
-      ctx.beginPath();
-      ctx.arc(size * 0.69, size * 0.29, size * 0.032, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Mosque dome silhouette at bottom
-      ctx.fillStyle = '#10b981';
-      ctx.beginPath();
-      ctx.arc(size * 0.5, size * 0.72, size * 0.15, Math.PI, 0);
-      ctx.lineTo(size * 0.72, size * 0.80);
-      ctx.lineTo(size * 0.28, size * 0.80);
-      ctx.closePath();
-      ctx.fill();
-
-      return canvas.toDataURL('image/png');
+    function buildAppIconSvgDataUrl() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#065f46"/>
+            <stop offset="100%" stop-color="#071310"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+        <circle cx="380" cy="135" r="14" fill="#fde68a"/>
+        <path d="M332 332A148 148 0 1 1 180 120a116 116 0 0 0 152 212z" fill="#f59e0b"/>
+      </svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     }
 
     function initPwaSupport() {
       try {
-        const icon192 = createPwaIconDataUrl(192);
-        const icon512 = createPwaIconDataUrl(512);
+        const iconUrl = buildAppIconSvgDataUrl();
+        const appleLink = document.getElementById('pwaAppleIconLink');
+        if (appleLink) appleLink.href = iconUrl;
 
-        const appleIcon = document.getElementById('pwaAppleIconLink');
-        if (appleIcon) appleIcon.href = icon192;
-
-        const manifestData = {
+        const manifest = {
           name: 'بەرنامەی بانگ و کاتەکانی کوردستان',
           short_name: 'بانگی کوردستان',
-          description: 'بەرنامەی بانگ و کاتەکانی نوێژ لە کوردستان، ڕۆژژمێری کۆچی و مانگ، قیبلەنما، تەسبیح و زیکرەکان',
+          description: 'کاتی بانگەکان لە هەموو شارەکانی کوردستان، دەنگی اللە أکبر، ڕۆژژمێری کۆچی، مانگ و قیبلەنما',
           lang: 'ckb',
           dir: 'rtl',
           start_url: './',
-          scope: './',
           display: 'standalone',
-          orientation: 'portrait-primary',
           background_color: '#071310',
-          theme_color: '#10b981',
+          theme_color: '#071310',
           icons: [
-            { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-            { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+            { src: iconUrl, sizes: '192x192 512x512', type: 'image/svg+xml', purpose: 'any maskable' }
           ]
         };
 
-        const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/manifest+json' });
-        const manifestUrl = URL.createObjectURL(manifestBlob);
         const manifestLink = document.getElementById('pwaManifestLink');
-        if (manifestLink) manifestLink.href = manifestUrl;
+        if (manifestLink) {
+          if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+            const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+            manifestLink.href = URL.createObjectURL(blob);
+          } else {
+            manifestLink.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest));
+          }
+        }
 
-        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+        if (
+          'serviceWorker' in navigator &&
+          (window.location.protocol === 'http:' || window.location.protocol === 'https:') &&
+          window.location.origin !== 'null'
+        ) {
           const swScript = `
-            const CACHE_NAME = 'kurdistan-adhan-pwa-cache-v2';
-            self.addEventListener('install', (event) => {
+            self.addEventListener('install', function(event) {
               self.skipWaiting();
-              event.waitUntil(
-                caches.open(CACHE_NAME).then((cache) => cache.addAll(['./']).catch(() => {}))
-              );
             });
-            self.addEventListener('activate', (event) => {
+            self.addEventListener('activate', function(event) {
               event.waitUntil(self.clients.claim());
             });
-            self.addEventListener('fetch', (event) => {
+            self.addEventListener('fetch', function(event) {
               if (event.request.method !== 'GET') return;
               event.respondWith(
-                fetch(event.request)
-                  .then((response) => {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone)).catch(() => {});
-                    return response;
-                  })
-                  .catch(() => caches.match(event.request))
+                fetch(event.request).catch(function() {
+                  return caches.match(event.request);
+                })
               );
             });
           `;
           const swBlob = new Blob([swScript], { type: 'application/javascript' });
           const swUrl = URL.createObjectURL(swBlob);
-          navigator.serviceWorker.register(swUrl).catch(() => {});
+          navigator.serviceWorker.register(swUrl).catch(function() {});
         }
-      } catch (err) {
-        console.warn('PWA initialization fallback:', err);
+      } catch (e) {
+        // Ignore in sandboxed/file origins
       }
 
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredInstallPrompt = e;
         updatePwaUi();
-        showToast('ئەپی «بانگی کوردستان» ئامادەیە بۆ دامەزراندن لەسەر ئامێرەکەت.');
       });
 
       window.addEventListener('appinstalled', () => {
         deferredInstallPrompt = null;
         updatePwaUi();
-        showToast('بەرنامەی «بانگی کوردستان» بە سەرکەوتوویی دامەزرا!');
+        showToast('بەرنامەی بانگی کوردستان بە سەرکەوتوویی دامەزرا!');
       });
 
       updatePwaUi();
     }
 
-    function updatePwaUi() {
-      const standalone = isRunningStandalone();
-      const modeBadge = document.getElementById('pwaModeBadge');
-      const banner = document.getElementById('pwaInstallBanner');
-      const headerBtnText = document.getElementById('pwaHeaderBtnText');
-
-      if (modeBadge) {
-        modeBadge.classList.toggle('hidden', !standalone);
-      }
-
-      if (headerBtnText) {
-        headerBtnText.textContent = standalone ? 'دامەزراوە' : 'دامەزراندن';
-      }
-
-      if (banner) {
-        if (standalone || appState.pwaBannerDismissed) {
-          banner.classList.add('hidden');
-        } else {
-          banner.classList.remove('hidden');
-        }
-      }
+    function isStandaloneMode() {
+      return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
     }
 
-    async function triggerPwaInstall() {
-      if (isRunningStandalone()) {
-        showToast('بەرنامەکە پێشوەختە وەک ئەپ دامەزراوە.');
-        return;
+    function updatePwaUi() {
+      const standalone = isStandaloneMode();
+      const badge = document.getElementById('pwaModeBadge');
+      const banner = document.getElementById('pwaInstallBanner');
+      if (badge) badge.classList.toggle('hidden', !standalone);
+      if (banner) {
+        banner.classList.toggle('hidden', standalone || Boolean(appState.pwaBannerDismissed));
       }
-      if (deferredInstallPrompt) {
-        try {
-          deferredInstallPrompt.prompt();
-          const choice = await deferredInstallPrompt.userChoice;
-          if (choice && choice.outcome === 'accepted') {
-            showToast('دامەزراندنی بەرنامە دەستی پێکرد...');
-          } else {
-            showToast('دامەزراندن هەڵوەشێنرایەوە.', true);
-          }
-          deferredInstallPrompt = null;
-          updatePwaUi();
-          return;
-        } catch (err) {
-          // Open guide modal if prompt fails
-        }
-      }
-      openPwaGuideModal();
     }
 
     function openPwaGuideModal() {
-      const modal = document.getElementById('pwaGuideModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+      const m = document.getElementById('pwaGuideModal');
+      if (m) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
       }
     }
 
     function closePwaGuideModal() {
-      const modal = document.getElementById('pwaGuideModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+      const m = document.getElementById('pwaGuideModal');
+      if (m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
       }
     }
 
+    async function triggerPwaInstall() {
+      if (deferredInstallPrompt) {
+        try {
+          deferredInstallPrompt.prompt();
+          const choice = await deferredInstallPrompt.userChoice;
+          deferredInstallPrompt = null;
+          updatePwaUi();
+          if (choice && choice.outcome === 'accepted') {
+            showToast('ئەپی «بانگی کوردستان» دامەزرا!');
+          }
+          return;
+        } catch (e) {}
+      }
+      openPwaGuideModal();
+    }
+
     /* =====================================================================
-       4. TOAST NOTIFICATION & ADHAN ("اللە أکبر") AUDIO + MODAL ENGINE
+       4. TOAST & ADHAN ("اللە أکبر") AUDIO + MODAL ENGINE
        ===================================================================== */
     let toastTimeout = null;
     function showToast(message, isWarning = false) {
       const banner = document.getElementById('toastBanner');
       const inner = document.getElementById('toastInner');
       const msgEl = document.getElementById('toastMessage');
+      if (!banner || !inner || !msgEl) return;
 
       msgEl.textContent = message;
       inner.className = isWarning
@@ -1204,29 +1176,38 @@
       }, 3600);
     }
 
-    document.getElementById('toastClose').addEventListener('click', () => {
-      const banner = document.getElementById('toastBanner');
-      banner.classList.remove('opacity-100');
-      banner.classList.add('opacity-0', 'pointer-events-none');
-    });
+    let activeAudioElement = null;
+    let activeAudioContext = null;
+    let adhanSequenceTimer = null;
+    let wakeLockSentinel = null;
 
-    const EXTERNAL_ADHAN_URLS = {
+    const ADHAN_STREAM_URLS = {
       makkah_stream_fallback: 'https://download.quranicaudio.com/adhan/makkah.mp3',
       madinah_stream_fallback: 'https://download.quranicaudio.com/adhan/madinah.mp3'
     };
 
-    let activeAudioElement = null;
-    let activeAudioContext = null;
-    let activeSynthTimers = [];
-    let isAdhanPlaying = false;
+    async function acquireWakeLock() {
+      try {
+        if ('wakeLock' in navigator && navigator.wakeLock && typeof navigator.wakeLock.request === 'function') {
+          wakeLockSentinel = await navigator.wakeLock.request('screen');
+        }
+      } catch (e) {}
+    }
 
-    function clearSynthTimers() {
-      activeSynthTimers.forEach(t => clearTimeout(t));
-      activeSynthTimers = [];
+    async function releaseWakeLock() {
+      try {
+        if (wakeLockSentinel && typeof wakeLockSentinel.release === 'function') {
+          await wakeLockSentinel.release();
+          wakeLockSentinel = null;
+        }
+      } catch (e) {}
     }
 
     function stopAdhanPlayback() {
-      clearSynthTimers();
+      if (adhanSequenceTimer) {
+        clearTimeout(adhanSequenceTimer);
+        adhanSequenceTimer = null;
+      }
       if (activeAudioElement) {
         try {
           activeAudioElement.pause();
@@ -1240,191 +1221,196 @@
         } catch (e) {}
         activeAudioContext = null;
       }
-      isAdhanPlaying = false;
-      const phraseEl = document.getElementById('adhanPhraseIndicator');
-      if (phraseEl) {
-        phraseEl.textContent = 'دەنگی بانگ ڕاگیرا.';
-      }
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+      } catch (e) {}
+      releaseWakeLock();
+
+      const ind = document.getElementById('adhanPhraseIndicator');
+      if (ind) ind.textContent = 'دەنگی بانگ ڕاگیرا.';
+      const wave = document.getElementById('adhanWaveVisualizer');
+      if (wave) wave.classList.add('opacity-30');
     }
 
-    // Synthesize melodic "Allahu Akbar" / Adhan Maqam cadence via Web Audio API
-    function playSynthesizedAdhan(mode, volumePercent, onPhraseChange) {
-      stopAdhanPlayback();
-      const volScale = Math.max(0.02, Math.min(1, volumePercent / 100));
+    function speakArabicTakbirPhrases(phrases, volumeRatio) {
+      try {
+        if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') return;
+        window.speechSynthesis.cancel();
+        const text = phrases.join(' .. ');
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'ar-SA';
+        utter.rate = 0.78;
+        utter.pitch = 0.92;
+        utter.volume = Math.max(0, Math.min(1, volumeRatio));
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
+    }
+
+    function playSynthesizedAdhan(fullAdhanMode = false, volumeRatio = 0.85) {
+      const ind = document.getElementById('adhanPhraseIndicator');
+      const note = document.getElementById('adhanEngineNote');
+      const wave = document.getElementById('adhanWaveVisualizer');
+      if (wave) wave.classList.remove('opacity-30');
+
+      const takbirSequence = [
+        { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ (١)', at: 0.0, baseFreq: 293.66 },
+        { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ (٢)', at: 3.2, baseFreq: 329.63 },
+        { label: 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ', at: 6.4, baseFreq: 349.23 },
+        { label: 'أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ', at: 9.6, baseFreq: 392.00 },
+        { label: 'حَيَّ عَلَى الصَّلَاةِ • حَيَّ عَلَى الْفَلَاحِ', at: 12.8, baseFreq: 440.00 },
+        { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ • لَا إِلَهَ إِلَّا اللَّهُ', at: 16.0, baseFreq: 293.66 }
+      ];
+
+      const activeSteps = fullAdhanMode ? takbirSequence : takbirSequence.slice(0, 2);
+      const totalDurationMs = (fullAdhanMode ? 19.5 : 6.8) * 1000;
+
+      if (note) {
+        note.textContent = fullAdhanMode
+          ? 'بانگی مەقامی («اللە أکبر») • دەنگی ناوخۆیی بێ پێویستی بە ئینتەرنێت'
+          : 'تەکبیری بانگ («اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ») • دەنگی ناوخۆیی بێ پێویستی بە ئینتەرنێت';
+      }
+
+      speakArabicTakbirPhrases(activeSteps.map(s => s.label), volumeRatio);
 
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) {
+          if (ind) ind.textContent = activeSteps[0].label;
+          return;
+        }
         const ctx = new AudioCtx();
         activeAudioContext = ctx;
-        isAdhanPlaying = true;
+        if (ctx.state === 'suspended') {
+          ctx.resume().catch(() => {});
+        }
 
-        const takbirSequence = [
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ (اللە أکبر • اللە أکبر)', freq: 293.66, start: 0.0, dur: 0.45 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 329.63, start: 0.48, dur: 0.45 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 392.00, start: 0.96, dur: 0.72 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 440.00, start: 1.75, dur: 0.48 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 392.00, start: 2.26, dur: 0.85 },
+        const peakGain = Math.max(0.01, Math.min(0.26, volumeRatio * 0.24));
 
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ (دووبارە)', freq: 392.00, start: 3.35, dur: 0.45 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 440.00, start: 3.83, dur: 0.45 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 523.25, start: 4.31, dur: 0.72 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 587.33, start: 5.10, dur: 0.48 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ', freq: 523.25, start: 5.62, dur: 0.95 }
-        ];
+        activeSteps.forEach((step, stepIdx) => {
+          setTimeout(() => {
+            if (!activeAudioContext) return;
+            if (ind) ind.textContent = step.label;
+          }, step.at * 1000);
 
-        const extraPhrases = mode === 'full_adhan_synth' ? [
-          { label: 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ', freq: 440.00, start: 6.95, dur: 0.65 },
-          { label: 'أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ', freq: 493.88, start: 7.70, dur: 0.70 },
-          { label: 'حَيَّ عَلَى الصَّلَاةِ • حَيَّ عَلَى الْفَلَاحِ', freq: 523.25, start: 8.50, dur: 0.75 },
-          { label: 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ • لَا إِلَهَ إِلَّا اللَّهُ', freq: 587.33, start: 9.35, dur: 1.15 }
-        ] : [];
+          const intervals = [
+            { mult: 1.0, off: 0.0, dur: 0.42 },
+            { mult: 1.125, off: 0.45, dur: 0.42 },
+            { mult: 1.333, off: 0.90, dur: 0.65 },
+            { mult: 1.5, off: 1.62, dur: 0.48 },
+            { mult: 1.333, off: 2.14, dur: 0.78 }
+          ];
 
-        const notes = [...takbirSequence, ...extraPhrases];
-        const peakGain = Math.min(0.30, 0.22 * volScale);
+          intervals.forEach(item => {
+            const startTime = ctx.currentTime + step.at + item.off;
+            const osc1 = ctx.createOscillator();
+            const osc2 = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const harmGain = ctx.createGain();
 
-        notes.forEach(n => {
-          const oscMain = ctx.createOscillator();
-          const oscHarmonic = ctx.createOscillator();
-          const harmGain = ctx.createGain();
-          const envGain = ctx.createGain();
+            osc1.type = 'sine';
+            osc2.type = 'triangle';
+            const f = step.baseFreq * item.mult * (stepIdx % 2 === 1 ? 1.02 : 1.0);
+            osc1.frequency.setValueAtTime(f, startTime);
+            osc2.frequency.setValueAtTime(f * 2, startTime);
 
-          oscMain.type = 'sine';
-          oscHarmonic.type = 'triangle';
+            harmGain.gain.setValueAtTime(0.25, startTime);
+            gain.gain.setValueAtTime(0.0001, startTime);
+            gain.gain.exponentialRampToValueAtTime(peakGain, startTime + 0.07);
+            gain.gain.exponentialRampToValueAtTime(peakGain * 0.72, startTime + item.dur * 0.65);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + item.dur);
 
-          oscMain.frequency.setValueAtTime(n.freq, ctx.currentTime + n.start);
-          oscHarmonic.frequency.setValueAtTime(n.freq * 1.5, ctx.currentTime + n.start);
+            osc1.connect(gain);
+            osc2.connect(harmGain);
+            harmGain.connect(gain);
+            gain.connect(ctx.destination);
 
-          harmGain.gain.setValueAtTime(0.14, ctx.currentTime + n.start);
-
-          envGain.gain.setValueAtTime(0.0001, ctx.currentTime + n.start);
-          envGain.gain.exponentialRampToValueAtTime(peakGain, ctx.currentTime + n.start + 0.08);
-          envGain.gain.exponentialRampToValueAtTime(peakGain * 0.72, ctx.currentTime + n.start + n.dur * 0.7);
-          envGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + n.start + n.dur);
-
-          oscMain.connect(envGain);
-          oscHarmonic.connect(harmGain);
-          harmGain.connect(envGain);
-          envGain.connect(ctx.destination);
-
-          oscMain.start(ctx.currentTime + n.start);
-          oscHarmonic.start(ctx.currentTime + n.start);
-          oscMain.stop(ctx.currentTime + n.start + n.dur + 0.05);
-          oscHarmonic.stop(ctx.currentTime + n.start + n.dur + 0.05);
-
-          if (onPhraseChange) {
-            const labelTimer = setTimeout(() => {
-              if (isAdhanPlaying) onPhraseChange(n.label);
-            }, n.start * 1000);
-            activeSynthTimers.push(labelTimer);
-          }
+            osc1.start(startTime);
+            osc2.start(startTime);
+            osc1.stop(startTime + item.dur + 0.05);
+            osc2.stop(startTime + item.dur + 0.05);
+          });
         });
 
-        const totalDurationMs = (notes[notes.length - 1].start + notes[notes.length - 1].dur + 0.3) * 1000;
-        const endTimer = setTimeout(() => {
+        adhanSequenceTimer = setTimeout(() => {
           stopAdhanPlayback();
         }, totalDurationMs);
-        activeSynthTimers.push(endTimer);
-      } catch (err) {
-        isAdhanPlaying = false;
-        showToast('نەتوانرا دەنگ لێبدرێت لە وێبگەڕەکەتدا.', true);
+      } catch (e) {
+        if (ind) ind.textContent = 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ';
       }
     }
 
-    function playAdhanAudio(onPhraseChange = null) {
+    function playAdhanForSelectedStyle() {
+      stopAdhanPlayback();
       if (!appState.soundEnabled) {
-        if (onPhraseChange) onPhraseChange('دەنگ ناچالاکە لە ڕێکخستنەکاندا.');
         showToast('دەنگ ناچالاکە. سەرەتا دەنگ چالاک بکە.', true);
+        const ind = document.getElementById('adhanPhraseIndicator');
+        if (ind) ind.textContent = 'دەنگ لە سەرەوە ناچالاک کراوە.';
         return;
       }
 
-      const mode = appState.adhanStyle || 'takbir_maqam';
-      const vol = appState.adhanVolume ?? 80;
-      const noteEl = document.getElementById('adhanEngineNote');
+      acquireWakeLock();
+      const volumeRatio = Math.max(0, Math.min(1, (appState.adhanVolume ?? 85) / 100));
+      const style = appState.adhanStyle || 'takbir_maqam';
 
-      if (EXTERNAL_ADHAN_URLS[mode] && navigator.onLine) {
-        stopAdhanPlayback();
+      if (style === 'full_adhan_synth') {
+        playSynthesizedAdhan(true, volumeRatio);
+        return;
+      }
+
+      if (ADHAN_STREAM_URLS[style] && navigator.onLine) {
         try {
-          const audio = new Audio(EXTERNAL_ADHAN_URLS[mode]);
-          audio.volume = Math.max(0, Math.min(1, vol / 100));
+          const audio = new Audio(ADHAN_STREAM_URLS[style]);
+          audio.volume = volumeRatio;
           activeAudioElement = audio;
-          isAdhanPlaying = true;
-          if (noteEl) noteEl.textContent = 'خەریکی لێدانی فایلی بانگە (بە خۆکاری دەگۆڕێت بۆ دەنگی ناوخۆیی ئەگەر پێویست بێت)...';
-          if (onPhraseChange) onPhraseChange('اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ');
+          const ind = document.getElementById('adhanPhraseIndicator');
+          const note = document.getElementById('adhanEngineNote');
+          if (ind) {
+            ind.textContent = style === 'madinah_stream_fallback'
+              ? 'خەریکی لێدانی بانگی مەدینەی پیرۆز...'
+              : 'خەریکی لێدانی بانگی مەککەی پیرۆز...';
+          }
+          if (note) note.textContent = 'دەنگی بانگ • ئەگەر پچڕا خۆکار دەگۆڕێت بۆ دەنگی اللە أکبر';
 
-          audio.play().catch(() => {
-            if (noteEl) noteEl.textContent = 'گۆڕان بۆ دەنگی مەقامی «اللە أکبر» (بێ ئینتەرنێت)';
-            playSynthesizedAdhan('takbir_maqam', vol, onPhraseChange);
-          });
-
-          audio.addEventListener('error', () => {
-            if (noteEl) noteEl.textContent = 'گۆڕان بۆ دەنگی مەقامی «اللە أکبر» (بێ ئینتەرنێت)';
-            playSynthesizedAdhan('takbir_maqam', vol, onPhraseChange);
-          });
-
-          audio.addEventListener('ended', () => {
-            isAdhanPlaying = false;
-          });
+          const p = audio.play();
+          if (p && typeof p.catch === 'function') {
+            p.catch(() => playSynthesizedAdhan(false, volumeRatio));
+          }
+          audio.addEventListener('error', () => playSynthesizedAdhan(false, volumeRatio));
+          audio.addEventListener('ended', () => stopAdhanPlayback());
           return;
-        } catch (err) {
-          // Fallback below
-        }
+        } catch (e) {}
       }
 
-      if (noteEl) {
-        noteEl.textContent = mode === 'full_adhan_synth'
-          ? 'بانگی تەواوی مەقامی (دەنگی ناوخۆیی)'
-          : 'دەنگی «اللە أکبر» بە مەقامی ئیسلامی (دەنگی ناوخۆیی)';
-      }
-      playSynthesizedAdhan(mode, vol, onPhraseChange);
+      playSynthesizedAdhan(false, volumeRatio);
     }
 
-    function maybeTriggerBrowserNotification(title, body) {
-      if (!('Notification' in window)) return;
-      if (Notification.permission === 'granted') {
-        try {
-          new Notification(title, {
-            body,
-            dir: 'rtl',
-            lang: 'ckb',
-            silent: true
-          });
-        } catch (e) {
-          // Ignore notification errors in restricted contexts
+    function sendBrowserNotification(title, body) {
+      try {
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification(title, { body, dir: 'rtl', lang: 'ckb', silent: true });
         }
-      }
+      } catch (e) {}
     }
 
     function openAdhanAlertModal(prayerName, cityName, timeStr, isTest = false) {
       const modal = document.getElementById('adhanAlertModal');
-      const badge = document.getElementById('adhanModalBadge');
-      const nameEl = document.getElementById('adhanModalPrayerName');
-      const locTimeEl = document.getElementById('adhanModalLocationTime');
-      const phraseEl = document.getElementById('adhanPhraseIndicator');
+      if (!modal) return;
 
-      if (badge) badge.textContent = isTest ? 'تاقیکردنەوەی دەنگی بانگ' : 'کاتی بانگ هات';
-      if (nameEl) nameEl.textContent = `بانگی ${prayerName}`;
-      if (locTimeEl) locTimeEl.textContent = `${cityName} • کات: ${timeStr}`;
-      if (phraseEl) phraseEl.textContent = 'اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ';
+      document.getElementById('adhanModalBadge').textContent = isTest ? 'تاقیکردنەوەی بانگ (اللە أکبر)' : 'کاتی بانگ هات';
+      document.getElementById('adhanModalPrayerName').textContent = isTest ? `تاقیکردنەوەی بانگ • ${prayerName}` : `بانگی ${prayerName}`;
+      document.getElementById('adhanModalLocationTime').textContent = `${cityName} • کات: ${timeStr}`;
 
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
 
-      maybeTriggerBrowserNotification(
-        `اللە أکبر • بانگی ${prayerName}`,
-        `کاتی بانگی ${prayerName} هات لە ${cityName} (${timeStr})`
-      );
-
-      playAdhanAudio((phraseText) => {
-        if (phraseEl) phraseEl.textContent = phraseText;
-      });
+      sendBrowserNotification(`اللە أکبر • بانگی ${prayerName}`, `${cityName} (${timeStr})`);
+      playAdhanForSelectedStyle();
     }
 
     function closeAdhanAlertModal(stopSound = true) {
-      if (stopSound) {
-        stopAdhanPlayback();
-      }
+      if (stopSound) stopAdhanPlayback();
       const modal = document.getElementById('adhanAlertModal');
       if (modal) {
         modal.classList.add('hidden');
@@ -1432,19 +1418,14 @@
       }
     }
 
-    // Backwards-compatible helper used by test button & live scheduler
-    function playSynthesizedAdhanTone(customInfo = null) {
+    function playSynthesizedAdhanTone() {
       const loc = getActiveLocation();
       const now = new Date();
-      if (customInfo) {
-        openAdhanAlertModal(customInfo.name, loc.name, formatTime24(customInfo.time || now), false);
-      } else {
-        openAdhanAlertModal('تاقیکاری (اللە أکبر)', loc.name, formatTime24(now), true);
-      }
+      openAdhanAlertModal('اللە أکبر', loc.name, formatTime24(now), true);
     }
 
     /* =====================================================================
-       5. ASTRONOMICAL PRAYER TIMES CALCULATOR (PURE JAVASCRIPT)
+       5. ASTRONOMICAL PRAYER TIMES CALCULATOR
        ===================================================================== */
     function degToRad(d) { return (d * Math.PI) / 180; }
     function radToDeg(r) { return (r * 180) / Math.PI; }
@@ -1453,7 +1434,7 @@
 
     function getJulianDate(date) {
       const year = date.getFullYear();
-      const month = date.getMonth() + 1;
+      let month = date.getMonth() + 1;
       const day = date.getDate();
       let y = year;
       let m = month;
@@ -1502,7 +1483,7 @@
     }
 
     function getActiveLocation() {
-      if (appState.customLocation) {
+      if (appState.customLocation && typeof appState.customLocation.lat === 'number') {
         return appState.customLocation;
       }
       const found = KURDISTAN_CITIES.find(c => c.id === appState.cityId) || KURDISTAN_CITIES[1];
@@ -1541,7 +1522,7 @@
 
       const result = {};
       for (const [key, hrFloat] of Object.entries(hoursMap)) {
-        const totalMins = Math.round(hrFloat * 60) + (key === 'sunrise' ? 0 : offsetMinutes);
+        const totalMins = Math.round(hrFloat * 60) + (key === 'sunrise' ? 0 : (offsetMinutes || 0));
         const d = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 0, 0, 0, 0);
         d.setMinutes(totalMins);
         result[key] = d;
@@ -1582,7 +1563,7 @@
     }
 
     function getAdjustedHijri(dateObj, adjDays) {
-      const adjustedDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate() + adjDays);
+      const adjustedDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate() + (adjDays || 0));
       return gregorianToHijriRaw(adjustedDate);
     }
 
@@ -1737,18 +1718,24 @@
       currentQiblaBearing = calculateQiblaBearing(loc.lat, loc.lon);
       const distKm = calculateDistanceKm(loc.lat, loc.lon, KAABAH_LAT, KAABAH_LON);
 
-      document.getElementById('qiblaCitySubtitle').textContent = `شوێنی دیاریکراو: ${loc.name}`;
-      document.getElementById('qiblaBearingValue').textContent = `${currentQiblaBearing.toFixed(1)}°`;
-      document.getElementById('qiblaCenterAngle').textContent = `${Math.round(currentQiblaBearing)}°`;
-      document.getElementById('qiblaDistanceValue').textContent = `${distKm.toLocaleString('en-US')} کم`;
-
+      const subEl = document.getElementById('qiblaCitySubtitle');
+      const bearEl = document.getElementById('qiblaBearingValue');
+      const centerEl = document.getElementById('qiblaCenterAngle');
+      const distEl = document.getElementById('qiblaDistanceValue');
       const needle = document.getElementById('qiblaNeedleContainer');
-      const rotation = (currentQiblaBearing - deviceHeading + 360) % 360;
-      needle.style.transform = `rotate(${rotation}deg)`;
+
+      if (subEl) subEl.textContent = `شوێنی دیاریکراو: ${loc.name}`;
+      if (bearEl) bearEl.textContent = `${currentQiblaBearing.toFixed(1)}°`;
+      if (centerEl) centerEl.textContent = `${Math.round(currentQiblaBearing)}°`;
+      if (distEl) distEl.textContent = `${distKm.toLocaleString('en-US')} کم`;
+      if (needle) {
+        const rotation = (currentQiblaBearing - deviceHeading + 360) % 360;
+        needle.style.transform = `rotate(${rotation}deg)`;
+      }
     }
 
     /* =====================================================================
-       8. ISLAMIC TOOLKIT DATA (TASBIH, AZKAR, 99 NAMES, OCCASIONS)
+       8. ISLAMIC TOOLKIT DATA
        ===================================================================== */
     const TASBIH_PRESETS = [
       { ar: 'سُبْحَانَ اللَّهِ', ku: 'پاک و بێگەردی بۆ خوا' },
@@ -1965,6 +1952,7 @@
        ===================================================================== */
     function initCityDropdown() {
       const sel = document.getElementById('citySelect');
+      if (!sel) return;
       sel.innerHTML = '';
 
       if (appState.customLocation) {
@@ -1992,25 +1980,31 @@
       const gMonth = KURDISH_GREGORIAN_MONTHS[now.getMonth()];
       const gregStr = `${dayName}، ${now.getDate()} ${gMonth} ${now.getFullYear()}`;
 
-      document.getElementById('headerGregorian').textContent = gregStr;
-      document.getElementById('headerSubtitle').innerHTML = `
-        <span>${loc.name}</span>
-        <span>•</span>
-        <span>${gregStr}</span>
-      `;
-      document.getElementById('locationBadge').textContent = `📍 ${loc.name}`;
-      document.getElementById('coordsInfo').textContent = `${loc.lat.toFixed(4)}°N, ${loc.lon.toFixed(4)}°E`;
+      const hg = document.getElementById('headerGregorian');
+      const hs = document.getElementById('headerSubtitle');
+      const lb = document.getElementById('locationBadge');
+      const ci = document.getElementById('coordsInfo');
+
+      if (hg) hg.textContent = gregStr;
+      if (hs) hs.innerHTML = `<span>${loc.name}</span><span>•</span><span>${gregStr}</span>`;
+      if (lb) lb.textContent = `📍 ${loc.name}`;
+      if (ci) ci.textContent = `${loc.lat.toFixed(4)}°N, ${loc.lon.toFixed(4)}°E`;
 
       const hijri = getAdjustedHijri(now, appState.hijriAdj);
       const hijriMonthName = HIJRI_MONTHS[(hijri.month - 1 + 12) % 12];
       const hijriStr = `${hijri.day} ${hijriMonthName} ${hijri.year} کۆچی`;
-      document.getElementById('hijriQuickDate').textContent = hijriStr;
-      document.getElementById('hijriFullDate').textContent = hijriStr;
-      document.getElementById('gregorianFullDate').textContent = gregStr;
+
+      const hq = document.getElementById('hijriQuickDate');
+      const hf = document.getElementById('hijriFullDate');
+      const gf = document.getElementById('gregorianFullDate');
+      if (hq) hq.textContent = hijriStr;
+      if (hf) hf.textContent = hijriStr;
+      if (gf) gf.textContent = gregStr;
 
       const lunarAge = getLunarAgeDays(now);
       const moonInfo = getMoonPhaseInfo(lunarAge);
-      document.getElementById('moonQuickPhase').textContent = `${moonInfo.title} (${moonInfo.illumination}%)`;
+      const mp = document.getElementById('moonQuickPhase');
+      if (mp) mp.textContent = `${moonInfo.title} (${moonInfo.illumination}%)`;
     }
 
     let lastTriggeredPrayerKey = null;
@@ -2019,8 +2013,10 @@
       const now = new Date();
       const loc = getActiveLocation();
 
-      document.getElementById('liveClock').textContent = formatClockHMS(now);
-      document.getElementById('livePeriod').textContent = now.getHours() < 12 ? 'بەیانی (AM)' : 'ئێوارە / شەو (PM)';
+      const lc = document.getElementById('liveClock');
+      const lp = document.getElementById('livePeriod');
+      if (lc) lc.textContent = formatClockHMS(now);
+      if (lp) lp.textContent = now.getHours() < 12 ? 'بەیانی (AM)' : 'ئێوارە / شەو (PM)';
 
       updateHeaderAndDates(now);
 
@@ -2058,18 +2054,35 @@
       const mins = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
       const secs = String(totalSec % 60).padStart(2, '0');
 
-      document.getElementById('nextPrayerName').textContent = nextEvent.name;
-      document.getElementById('nextPrayerTimeText').textContent = `کاتی بانگ: ${formatTime24(nextEvent.time)}`;
-      document.getElementById('countdownTimer').textContent = `${hrs}:${mins}:${secs}`;
-      document.getElementById('prevPrayerLabel').textContent = `لە: ${prevEvent.name} (${formatTime24(prevEvent.time)})`;
+      const remHours = Math.floor(totalSec / 3600);
+      const remMins = Math.floor((totalSec % 3600) / 60);
+      const remSecs = totalSec % 60;
+      const summaryParts = [];
+      if (remHours > 0) summaryParts.push(`${remHours} کاتژمێر`);
+      if (remMins > 0) summaryParts.push(`${remMins} خولەک`);
+      summaryParts.push(`${remSecs} چرکە`);
+
+      const npName = document.getElementById('nextPrayerName');
+      const npTime = document.getElementById('nextPrayerTimeText');
+      const remSum = document.getElementById('remainingTimeSummary');
+      const cdEl = document.getElementById('countdownTimer');
+      const prevLbl = document.getElementById('prevPrayerLabel');
+      const progBar = document.getElementById('prayerProgressBar');
+      const progPct = document.getElementById('prayerProgressPercent');
+
+      if (npName) npName.textContent = nextEvent.name;
+      if (npTime) npTime.textContent = `کاتی بانگ: ${formatTime24(nextEvent.time)}`;
+      if (remSum) remSum.textContent = `چەندی ماوە بۆ بانگ: ${summaryParts.join(' و ')}`;
+      if (cdEl) cdEl.textContent = `${hrs}:${mins}:${secs}`;
+      if (prevLbl) prevLbl.textContent = `لە: ${prevEvent.name} (${formatTime24(prevEvent.time)})`;
 
       const spanMs = Math.max(1, nextEvent.time.getTime() - prevEvent.time.getTime());
       const elapsedMs = Math.min(spanMs, Math.max(0, now.getTime() - prevEvent.time.getTime()));
       const pct = Math.round((elapsedMs / spanMs) * 100);
-      document.getElementById('prayerProgressBar').style.width = `${pct}%`;
-      document.getElementById('prayerProgressPercent').textContent = `${pct}%`;
+      if (progBar) progBar.style.width = `${pct}%`;
+      if (progPct) progPct.textContent = `${pct}%`;
 
-      // Check if any prayer/sunrise time just arrived (within first 2 seconds of minute)
+      // Automatic Adhan trigger when a prayer time arrives
       for (const meta of PRAYER_META) {
         const pTime = todayTimes[meta.key];
         const secDelta = Math.floor((now.getTime() - pTime.getTime()) / 1000);
@@ -2086,7 +2099,9 @@
 
       // Render 6 prayer cards
       const grid = document.getElementById('prayerCardsGrid');
+      if (!grid) return;
       grid.innerHTML = '';
+
       PRAYER_META.forEach(meta => {
         const pTime = todayTimes[meta.key];
         const isPassed = pTime.getTime() < now.getTime();
@@ -2129,42 +2144,44 @@
       const shafiiBtn = document.getElementById('madhhabShafii');
       const hanafiBtn = document.getElementById('madhhabHanafi');
 
-      if (appState.madhhab === 'shafii') {
-        shafiiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950';
-        hanafiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white';
-      } else {
-        hanafiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950';
-        shafiiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white';
+      if (shafiiBtn && hanafiBtn) {
+        if (appState.madhhab === 'shafii') {
+          shafiiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950';
+          hanafiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white';
+        } else {
+          hanafiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950';
+          shafiiBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white';
+        }
       }
 
-      const off = appState.offsetMinutes;
+      const off = appState.offsetMinutes || 0;
       const sign = off > 0 ? '+' : '';
-      document.getElementById('offsetDisplay').textContent = `${sign}${off} خولەک`;
+      const disp = document.getElementById('offsetDisplay');
+      if (disp) disp.textContent = `${sign}${off} خولەک`;
     }
 
     function updateSoundAndAlarmSettingsUI() {
       const icon = document.getElementById('soundIcon');
       const label = document.getElementById('soundLabel');
-      if (appState.soundEnabled) {
-        icon.textContent = '🔊';
-        label.textContent = 'دەنگ چالاکە';
-      } else {
-        icon.textContent = '🔇';
-        label.textContent = 'بێدەنگ';
+      if (icon && label) {
+        if (appState.soundEnabled) {
+          icon.textContent = '🔊';
+          label.textContent = 'دەنگ چالاکە';
+        } else {
+          icon.textContent = '🔇';
+          label.textContent = 'بێدەنگ';
+        }
       }
 
       const styleSel = document.getElementById('adhanStyleSelect');
-      if (styleSel) {
-        styleSel.value = appState.adhanStyle || 'takbir_maqam';
-      }
+      if (styleSel) styleSel.value = appState.adhanStyle || 'takbir_maqam';
 
       const volSlider = document.getElementById('adhanVolumeSlider');
       const volVal = document.getElementById('adhanVolumeValue');
-      const vol = appState.adhanVolume ?? 80;
+      const vol = appState.adhanVolume ?? 85;
       if (volSlider) volSlider.value = vol;
       if (volVal) volVal.textContent = `${vol}%`;
 
-      // Notification permission status label
       const permStatusEl = document.getElementById('notifPermStatus');
       if (permStatusEl) {
         if (!('Notification' in window)) {
@@ -2181,7 +2198,6 @@
         }
       }
 
-      // Per-prayer toggles
       const togglesWrap = document.getElementById('perPrayerAlarmToggles');
       if (togglesWrap) {
         togglesWrap.innerHTML = '';
@@ -2203,7 +2219,7 @@
             saveState();
             updateSoundAndAlarmSettingsUI();
             updatePrayerTimesAndClock();
-            showToast(`${meta.name}: ${appState.perPrayerAlarm[meta.key] ? 'ئاگادارکردنەوە چالاک کرا' : 'ئاگادارکردنەوە کوژێنرایەوە'}`);
+            showToast(`${meta.name}: ${appState.perPrayerAlarm[meta.key] ? 'بانگ چالاک کرا' : 'بانگ ناچالاک کرا'}`);
           });
           togglesWrap.appendChild(btn);
         });
@@ -2219,32 +2235,38 @@
       const age = customAgeOverride !== null ? Number(customAgeOverride) : todayAge;
       const info = getMoonPhaseInfo(age);
 
-      document.getElementById('moonDayLabel').textContent = `ڕۆژی ${age.toFixed(1)} لە خولی مانگ`;
-      document.getElementById('moonPhaseTitle').textContent = info.title;
-      document.getElementById('moonPhaseDesc').textContent = info.desc;
-      document.getElementById('moonIllumination').textContent = `${info.illumination}%`;
-      document.getElementById('moonAgeDays').textContent = `${age.toFixed(1)} ڕۆژ`;
+      const dayLbl = document.getElementById('moonDayLabel');
+      const titleEl = document.getElementById('moonPhaseTitle');
+      const descEl = document.getElementById('moonPhaseDesc');
+      const illumEl = document.getElementById('moonIllumination');
+      const ageEl = document.getElementById('moonAgeDays');
+      const sliderEl = document.getElementById('moonSlider');
 
-      if (customAgeOverride === null) {
-        document.getElementById('moonSlider').value = todayAge.toFixed(1);
-      }
+      if (dayLbl) dayLbl.textContent = `ڕۆژی ${age.toFixed(1)} لە خولی مانگ`;
+      if (titleEl) titleEl.textContent = info.title;
+      if (descEl) descEl.textContent = info.desc;
+      if (illumEl) illumEl.textContent = `${info.illumination}%`;
+      if (ageEl) ageEl.textContent = `${age.toFixed(1)} ڕۆژ`;
+      if (customAgeOverride === null && sliderEl) sliderEl.value = todayAge.toFixed(1);
 
       renderMoonCanvas(age);
 
-      const adj = appState.hijriAdj;
-      document.getElementById('hijriAdjBadge').textContent = `${adj > 0 ? '+' : ''}${adj} ڕۆژ`;
+      const adj = appState.hijriAdj || 0;
+      const adjBadge = document.getElementById('hijriAdjBadge');
+      if (adjBadge) adjBadge.textContent = `${adj > 0 ? '+' : ''}${adj} ڕۆژ`;
+
       document.querySelectorAll('.hijri-adj-btn').forEach(btn => {
         const val = Number(btn.dataset.hijriAdj);
-        if (val === adj) {
-          btn.className = 'hijri-adj-btn py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 border border-emerald-400';
-        } else {
-          btn.className = 'hijri-adj-btn py-2 rounded-xl text-xs font-bold bg-emerald-950 hover:bg-emerald-800 text-emerald-200 border border-emerald-500/25';
-        }
+        btn.className = val === adj
+          ? 'hijri-adj-btn py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 border border-emerald-400'
+          : 'hijri-adj-btn py-2 rounded-xl text-xs font-bold bg-emerald-950 hover:bg-emerald-800 text-emerald-200 border border-emerald-500/25';
       });
 
       const hijri = getAdjustedHijri(now, appState.hijriAdj);
       const monthsContainer = document.getElementById('hijriMonthsList');
+      if (!monthsContainer) return;
       monthsContainer.innerHTML = '';
+
       HIJRI_MONTHS.forEach((mName, idx) => {
         const isCurrent = (idx + 1) === hijri.month;
         const item = document.createElement('div');
@@ -2261,6 +2283,7 @@
        ===================================================================== */
     function renderTasbih() {
       const presetsWrap = document.getElementById('tasbihPresets');
+      if (!presetsWrap) return;
       presetsWrap.innerHTML = '';
 
       TASBIH_PRESETS.forEach((p, idx) => {
@@ -2307,6 +2330,7 @@
 
       const list = AZKAR_DATA[appState.azkarCategory] || [];
       const container = document.getElementById('azkarListContainer');
+      if (!container) return;
       container.innerHTML = '';
 
       list.forEach(item => {
@@ -2346,12 +2370,13 @@
     }
 
     function renderNamesOfAllah(filterText = '') {
-      const q = filterText.trim().toLowerCase();
+      const q = (filterText || '').trim().toLowerCase();
       const filtered = NAMES_OF_ALLAH.filter(item =>
         item.ar.includes(q) || item.ku.toLowerCase().includes(q) || String(item.n).includes(q)
       );
 
       const grid = document.getElementById('namesGrid');
+      if (!grid) return;
       grid.innerHTML = '';
 
       filtered.forEach(item => {
@@ -2371,6 +2396,7 @@
     function renderTrackerAndOccasions() {
       ensureDailyResets();
       const checklistEl = document.getElementById('prayerChecklist');
+      if (!checklistEl) return;
       checklistEl.innerHTML = '';
 
       let completed = 0;
@@ -2398,10 +2424,13 @@
       });
 
       const pct = Math.round((completed / FARD_PRAYERS.length) * 100);
-      document.getElementById('prayerTrackerPercent').textContent = `${pct}%`;
-      document.getElementById('prayerTrackerBar').style.width = `${pct}%`;
+      const pctEl = document.getElementById('prayerTrackerPercent');
+      const barEl = document.getElementById('prayerTrackerBar');
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (barEl) barEl.style.width = `${pct}%`;
 
       const occContainer = document.getElementById('occasionsContainer');
+      if (!occContainer) return;
       occContainer.innerHTML = '';
       ISLAMIC_OCCASIONS.forEach(occ => {
         const card = document.createElement('div');
@@ -2418,7 +2447,7 @@
     }
 
     /* =====================================================================
-       12. TAB SWITCHING & EVENT LISTENERS
+       12. TAB SWITCHING, EVENT BINDING & EXPOSED ACTIONS
        ===================================================================== */
     function switchTab(tabName) {
       appState.activeTab = tabName;
@@ -2431,11 +2460,20 @@
           : 'nav-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 text-emerald-200 hover:bg-emerald-900/60';
       });
 
+      document.querySelectorAll('.nav-tab-mobile').forEach(btn => {
+        const isActive = btn.dataset.tab === tabName;
+        btn.className = isActive
+          ? 'nav-tab-mobile active flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-extrabold bg-emerald-500 text-slate-950 transition'
+          : 'nav-tab-mobile flex flex-col items-center justify-center px-2.5 py-1.5 rounded-xl text-[10px] font-semibold text-emerald-200 transition';
+      });
+
       document.querySelectorAll('.tab-panel').forEach(panel => {
         panel.classList.toggle('hidden', panel.id !== `tab-${tabName}`);
       });
 
-      if (tabName === 'moon') {
+      if (tabName === 'prayers') {
+        updatePrayerTimesAndClock();
+      } else if (tabName === 'moon') {
         renderMoonSection(null);
       } else if (tabName === 'qibla') {
         updateQiblaUI();
@@ -2444,22 +2482,39 @@
       } else if (tabName === 'azkar') {
         renderAzkar();
       } else if (tabName === 'names') {
-        renderNamesOfAllah(document.getElementById('namesSearchInput').value);
+        const inp = document.getElementById('namesSearchInput');
+        renderNamesOfAllah(inp ? inp.value : '');
       } else if (tabName === 'tracker') {
         renderTrackerAndOccasions();
       }
     }
 
     function bindEvents() {
-      // Tab buttons
-      document.querySelectorAll('.nav-tab').forEach(btn => {
-        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      const on = (id, ev, fn) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener(ev, fn);
+      };
+
+      on('toastClose', 'click', () => {
+        const banner = document.getElementById('toastBanner');
+        if (banner) {
+          banner.classList.remove('opacity-100');
+          banner.classList.add('opacity-0', 'pointer-events-none');
+        }
       });
 
-      // PWA install & guide buttons
-      document.getElementById('pwaHeaderBtn').addEventListener('click', triggerPwaInstall);
-      document.getElementById('bannerInstallBtn').addEventListener('click', triggerPwaInstall);
-      document.getElementById('modalTriggerInstallBtn').addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab, .nav-tab-mobile').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchTab(btn.dataset.tab);
+        });
+      });
+
+      on('pwaHeaderBtn', 'click', triggerPwaInstall);
+      on('bannerInstallBtn', 'click', triggerPwaInstall);
+      on('bannerGuideBtn', 'click', openPwaGuideModal);
+      on('closePwaGuideBtn', 'click', closePwaGuideModal);
+      on('modalTriggerInstallBtn', 'click', () => {
         closePwaGuideModal();
         if (deferredInstallPrompt) {
           triggerPwaInstall();
@@ -2467,16 +2522,13 @@
           showToast('لە مێنیوی وێبگەڕەکەت «Add to Home screen» هەڵبژێرە بۆ دامەزراندن.');
         }
       });
-      document.getElementById('bannerGuideBtn').addEventListener('click', openPwaGuideModal);
-      document.getElementById('closePwaGuideBtn').addEventListener('click', closePwaGuideModal);
-      document.getElementById('bannerDismissBtn').addEventListener('click', () => {
+      on('bannerDismissBtn', 'click', () => {
         appState.pwaBannerDismissed = true;
         saveState();
         updatePwaUi();
       });
 
-      // City dropdown
-      document.getElementById('citySelect').addEventListener('change', (e) => {
+      on('citySelect', 'change', (e) => {
         const val = e.target.value;
         if (val !== '__custom__') {
           appState.cityId = val;
@@ -2490,8 +2542,7 @@
         }
       });
 
-      // GPS geolocation button
-      document.getElementById('gpsBtn').addEventListener('click', () => {
+      on('gpsBtn', 'click', () => {
         if (!navigator.geolocation) {
           showToast('وێبگەڕەکەت پشتگیری GPS ناکات.', true);
           return;
@@ -2519,52 +2570,47 @@
         );
       });
 
-      // Sound toggle & Adhan test/stop buttons
-      document.getElementById('soundToggleBtn').addEventListener('click', () => {
+      on('soundToggleBtn', 'click', () => {
         appState.soundEnabled = !appState.soundEnabled;
-        if (!appState.soundEnabled) {
-          stopAdhanPlayback();
-        }
+        if (!appState.soundEnabled) stopAdhanPlayback();
         saveState();
         updateSoundAndAlarmSettingsUI();
         showToast(appState.soundEnabled ? 'دەنگی ئاگادارکردنەوەی بانگ چالاک کرا' : 'دەنگی بانگ کوژێنرایەوە');
       });
 
-      document.getElementById('testAdhanBtn').addEventListener('click', () => {
+      on('testAdhanBtn', 'click', () => {
         playSynthesizedAdhanTone();
       });
 
-      document.getElementById('quickStopAdhanBtn').addEventListener('click', () => {
+      on('quickStopAdhanBtn', 'click', () => {
         stopAdhanPlayback();
         showToast('دەنگی بانگ ڕاگیرا.');
       });
 
-      document.getElementById('stopAdhanBtn').addEventListener('click', () => {
+      on('stopAdhanBtn', 'click', () => {
         stopAdhanPlayback();
       });
 
-      document.getElementById('dismissAdhanModalBtn').addEventListener('click', () => {
+      on('dismissAdhanModalBtn', 'click', () => {
         closeAdhanAlertModal(true);
       });
 
-      // Adhan style, volume & notification permission controls
-      document.getElementById('adhanStyleSelect').addEventListener('change', (e) => {
+      on('adhanStyleSelect', 'change', (e) => {
         appState.adhanStyle = e.target.value;
         saveState();
         showToast('شێوازی دەنگی بانگ پاشەکەوت کرا');
       });
 
-      document.getElementById('adhanVolumeSlider').addEventListener('input', (e) => {
+      on('adhanVolumeSlider', 'input', (e) => {
         const val = Number(e.target.value);
         appState.adhanVolume = val;
-        document.getElementById('adhanVolumeValue').textContent = `${val}%`;
-        if (activeAudioElement) {
-          activeAudioElement.volume = Math.max(0, Math.min(1, val / 100));
-        }
+        const label = document.getElementById('adhanVolumeValue');
+        if (label) label.textContent = `${val}%`;
+        if (activeAudioElement) activeAudioElement.volume = Math.max(0, Math.min(1, val / 100));
         saveState();
       });
 
-      document.getElementById('requestNotifPermBtn').addEventListener('click', async () => {
+      on('requestNotifPermBtn', 'click', async () => {
         if (!('Notification' in window)) {
           showToast('ئەم وێبگەڕە پشتگیری Notification ناکات.', true);
           return;
@@ -2572,59 +2618,52 @@
         try {
           const perm = await Notification.requestPermission();
           updateSoundAndAlarmSettingsUI();
-          if (perm === 'granted') {
-            showToast('مۆڵەتی ئاگادارکردنەوە بە سەرکەوتوویی چالاک کرا!');
-          } else {
-            showToast('مۆڵەتی ئاگادارکردنەوە نەدرا.', true);
-          }
+          showToast(perm === 'granted' ? 'مۆڵەتی ئاگادارکردنەوە چالاک کرا!' : 'مۆڵەتی ئاگادارکردنەوە نەدرا.', perm !== 'granted');
         } catch (err) {
           showToast('نەتوانرا مۆڵەتی ئاگادارکردنەوە وەربگیرێت.', true);
         }
       });
 
-      // Madhhab toggle
-      document.getElementById('madhhabShafii').addEventListener('click', () => {
+      on('madhhabShafii', 'click', () => {
         appState.madhhab = 'shafii';
         saveState();
         updateMadhhabAndOffsetUI();
         updatePrayerTimesAndClock();
       });
 
-      document.getElementById('madhhabHanafi').addEventListener('click', () => {
+      on('madhhabHanafi', 'click', () => {
         appState.madhhab = 'hanafi';
         saveState();
         updateMadhhabAndOffsetUI();
         updatePrayerTimesAndClock();
       });
 
-      // Minute offsets
-      document.getElementById('offsetMinus').addEventListener('click', () => {
-        appState.offsetMinutes = Math.max(-30, appState.offsetMinutes - 1);
+      on('offsetMinus', 'click', () => {
+        appState.offsetMinutes = Math.max(-30, (appState.offsetMinutes || 0) - 1);
         saveState();
         updateMadhhabAndOffsetUI();
         updatePrayerTimesAndClock();
       });
 
-      document.getElementById('offsetPlus').addEventListener('click', () => {
-        appState.offsetMinutes = Math.min(30, appState.offsetMinutes + 1);
+      on('offsetPlus', 'click', () => {
+        appState.offsetMinutes = Math.min(30, (appState.offsetMinutes || 0) + 1);
         saveState();
         updateMadhhabAndOffsetUI();
         updatePrayerTimesAndClock();
       });
 
-      document.getElementById('offsetReset').addEventListener('click', () => {
+      on('offsetReset', 'click', () => {
         appState.offsetMinutes = 0;
         saveState();
         updateMadhhabAndOffsetUI();
         updatePrayerTimesAndClock();
       });
 
-      // Moon slider & Hijri adjustment
-      document.getElementById('moonSlider').addEventListener('input', (e) => {
+      on('moonSlider', 'input', (e) => {
         renderMoonSection(Number(e.target.value));
       });
 
-      document.getElementById('resetMoonTodayBtn').addEventListener('click', () => {
+      on('resetMoonTodayBtn', 'click', () => {
         renderMoonSection(null);
       });
 
@@ -2637,8 +2676,7 @@
         });
       });
 
-      // Qibla device orientation button
-      document.getElementById('enableCompassBtn').addEventListener('click', async () => {
+      on('enableCompassBtn', 'click', async () => {
         try {
           if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
             const res = await DeviceOrientationEvent.requestPermission();
@@ -2660,20 +2698,15 @@
         }
       });
 
-      // Tasbih tap, targets & reset
-      document.getElementById('tasbihTapBtn').addEventListener('click', () => {
+      on('tasbihTapBtn', 'click', () => {
         ensureDailyResets();
         appState.tasbihCount += 1;
         appState.tasbihTodayTotal += 1;
 
         if (appState.tasbihTarget > 0 && appState.tasbihCount >= appState.tasbihTarget) {
-          if (navigator.vibrate) {
-            navigator.vibrate([80, 50, 80]);
-          }
+          if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
           showToast(`تەواوبوو! گەیشتیتە ئامانجی ${appState.tasbihTarget} زیکر`);
-          if (appState.tasbihCount > appState.tasbihTarget) {
-            appState.tasbihCount = 1;
-          }
+          if (appState.tasbihCount > appState.tasbihTarget) appState.tasbihCount = 1;
         } else if (navigator.vibrate) {
           navigator.vibrate(20);
         }
@@ -2691,13 +2724,12 @@
         });
       });
 
-      document.getElementById('tasbihResetBtn').addEventListener('click', () => {
+      on('tasbihResetBtn', 'click', () => {
         appState.tasbihCount = 0;
         saveState();
         renderTasbih();
       });
 
-      // Azkar category buttons
       document.querySelectorAll('.azkar-cat-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           appState.azkarCategory = btn.dataset.azkarCat;
@@ -2706,42 +2738,73 @@
         });
       });
 
-      // 99 Names search
-      document.getElementById('namesSearchInput').addEventListener('input', (e) => {
+      on('namesSearchInput', 'input', (e) => {
         renderNamesOfAllah(e.target.value);
       });
 
-      // Redraw moon canvas cleanly on resize
       window.addEventListener('resize', () => {
-        if (!document.getElementById('tab-moon').classList.contains('hidden')) {
-          renderMoonSection(Number(document.getElementById('moonSlider').value));
+        const moonPanel = document.getElementById('tab-moon');
+        const slider = document.getElementById('moonSlider');
+        if (moonPanel && !moonPanel.classList.contains('hidden') && slider) {
+          renderMoonSection(Number(slider.value));
         }
       });
     }
 
+    window.appActions = {
+      switchTab: (tab) => switchTab(tab),
+      testAdhan: () => playSynthesizedAdhanTone(),
+      stopAdhan: () => stopAdhanPlayback(),
+      installPwa: () => triggerPwaInstall(),
+      refreshPrayers: () => updatePrayerTimesAndClock()
+    };
+
     /* =====================================================================
-       13. INITIALIZATION LOOP
+       13. INITIALIZATION & LIVE TICKER
        ===================================================================== */
-    window.addEventListener('DOMContentLoaded', () => {
-      ensureDailyResets();
-      initPwaSupport();
-      initCityDropdown();
-      updateSoundAndAlarmSettingsUI();
-      updateMadhhabAndOffsetUI();
-      bindEvents();
+    let appInitialized = false;
+    let tickerTimerId = null;
 
-      updatePrayerTimesAndClock();
-      updateQiblaUI();
-      renderMoonSection(null);
-      renderTasbih();
-      renderAzkar();
-      renderNamesOfAllah('');
-      renderTrackerAndOccasions();
+    function bootApplication() {
+      if (!appInitialized) {
+        appInitialized = true;
+        try {
+          ensureDailyResets();
+          initPwaSupport();
+          initCityDropdown();
+          updateSoundAndAlarmSettingsUI();
+          updateMadhhabAndOffsetUI();
+          bindEvents();
 
-      switchTab(appState.activeTab || 'prayers');
+          updateQiblaUI();
+          renderMoonSection(null);
+          renderTasbih();
+          renderAzkar();
+          renderNamesOfAllah('');
+          renderTrackerAndOccasions();
+          switchTab(appState.activeTab || 'prayers');
+        } catch (e) {
+          // Ensure prayer clock still updates even if a non-critical section throws
+        }
+      }
 
-      setInterval(updatePrayerTimesAndClock, 1000);
-    });
+      try {
+        updatePrayerTimesAndClock();
+      } catch (e) {}
+
+      if (!tickerTimerId) {
+        tickerTimerId = setInterval(() => {
+          try {
+            updatePrayerTimesAndClock();
+          } catch (e) {}
+        }, 1000);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', bootApplication);
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      bootApplication();
+    }
   </script>
 </body>
 </html>
