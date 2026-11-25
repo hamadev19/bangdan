@@ -476,7 +476,6 @@
     let lastPlayedPrayer = "";
     const adhanAudio = document.getElementById("adhanAudio");
 
-    // گۆڕینی بەشەکان
     function switchTab(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -487,7 +486,6 @@
         }
     }
 
-    // دەنگ و بانگ
     function enableAudio() {
         adhanAudio.play().then(() => {
             adhanAudio.pause();
@@ -519,7 +517,6 @@
         }
     }
 
-    // هێنانی کاتەکانی بانگ
     async function initApp() {
         const city = document.getElementById("citySelect").value;
         const coords = cityCoords[city];
@@ -538,7 +535,6 @@
         }
     }
 
-    // ژمێرەری پێچەوانە
     setInterval(() => {
         if (!prayerTimes.Fajr) return;
         const now = new Date();
@@ -577,7 +573,6 @@
         }
     }, 1000);
 
-    // قیبلەنما
     function startCompass() {
         const city = document.getElementById("citySelect").value;
         const qiblaAngle = cityCoords[city].qibla;
@@ -599,7 +594,6 @@
         }
     }
 
-    // قورئانی پیرۆز
     async function loadSurah() {
         const num = document.getElementById("surahSelect").value;
         const box = document.getElementById("quranContent");
@@ -617,7 +611,6 @@
         }
     }
 
-    // تەسبیحات
     let count = parseInt(localStorage.getItem("tasbih_v2")) || 0;
     document.getElementById("tasbihCount").innerText = count;
     function countTasbih() {
@@ -632,7 +625,6 @@
         localStorage.setItem("tasbih_v2", 0);
     }
 
-    // ناوە جوانەکانی خودا
     const allahNames = [
         ["اللَّهُ", "خودای تاک و تەنها"], ["الرَّحْمَنُ", "زۆر بەبەزەیی"], ["الرَّحِيمُ", "میهرەبان"],
         ["الْمَلِكُ", "پادشای هەموو بوونەوەر"], ["الْقُدُّوسُ", "پاک و بێگەرد"], ["السَّلَامُ", "سەرچاوەی ئاشتی"],
