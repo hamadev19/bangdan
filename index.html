@@ -6,7 +6,7 @@
     <title>بەرنامەی گشتگیری ئیسلامی - Hama Dev</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap');
-        
+
         :root {
             --bg-color: #0b1120;
             --card-bg: #1e293b;
@@ -36,7 +36,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 0 0 80px 0;
+            padding: 0 0 85px 0;
             transition: background 0.3s, color 0.3s;
             display: flex;
             flex-direction: column;
@@ -49,30 +49,35 @@
             padding: 15px;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             gap: 8px;
         }
 
-        select, button {
+        select, button, input {
             font-family: inherit;
             border-radius: 12px;
             border: none;
             font-size: 13px;
-            cursor: pointer;
             transition: 0.2s;
         }
 
-        select {
+        button {
+            cursor: pointer;
+        }
+
+        select, input {
             background: var(--card-bg);
             color: var(--text-color);
             border: 1px solid var(--card-border);
             padding: 10px 12px;
             font-weight: 600;
+        }
+
+        select {
             flex: 1;
         }
 
@@ -83,7 +88,22 @@
             padding: 10px 12px;
         }
 
-        /* Sound Banner */
+        .gps-btn {
+            background: var(--card-bg);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 10px 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .location-status {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
         .btn-sound {
             background: linear-gradient(90deg, #ef4444, #dc2626);
             color: white;
@@ -103,20 +123,20 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
-        /* Tabs Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.3s ease;
         }
+
         .tab-content.active {
             display: block;
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Next Prayer Hero Card */
         .next-prayer-card {
             background: linear-gradient(135deg, #10b981, #047857);
             color: white;
@@ -125,8 +145,6 @@
             text-align: center;
             margin-bottom: 15px;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.25);
-            position: relative;
-            overflow: hidden;
         }
 
         .countdown {
@@ -142,17 +160,17 @@
             justify-content: center;
             gap: 8px;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
 
         .audio-controls select, .audio-controls button {
             background: rgba(0, 0, 0, 0.25);
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 6px 10px;
             font-size: 12px;
         }
 
-        /* Prayer List */
         .prayer-list {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -179,7 +197,6 @@
             color: var(--accent);
         }
 
-        /* Qibla Compass */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -217,7 +234,26 @@
             font-size: 28px;
         }
 
-        /* Quran Reader */
+        .controls-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .quran-audio-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .quran-audio-box audio {
+            width: 100%;
+            margin-top: 6px;
+        }
+
         .quran-text {
             font-family: 'Amiri', serif;
             font-size: 24px;
@@ -227,12 +263,12 @@
             padding: 15px;
             border-radius: 14px;
             margin-top: 12px;
-            max-height: 400px;
+            max-height: 380px;
             overflow-y: auto;
         }
+
         body.light-mode .quran-text { background: #f8fafc; }
 
-        /* Tasbih & Azkar */
         .tasbih-btn {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -245,6 +281,7 @@
             display: block;
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
         }
+
         .tasbih-btn:active { transform: scale(0.93); }
 
         .zikr-box {
@@ -254,16 +291,23 @@
             padding: 12px;
             border-radius: 10px;
             margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.9;
         }
 
-        /* Names of Allah Grid */
+        .search-input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
         .names-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            max-height: 420px;
+            max-height: 440px;
             overflow-y: auto;
         }
+
         .name-item {
             background: rgba(148, 163, 184, 0.08);
             border: 1px solid var(--card-border);
@@ -271,6 +315,13 @@
             border-radius: 12px;
             text-align: center;
         }
+
+        .name-num {
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
         .name-ar {
             font-family: 'Amiri', serif;
             font-size: 20px;
@@ -278,7 +329,6 @@
             color: var(--accent);
         }
 
-        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -314,9 +364,8 @@
 <body>
 
 <div class="container">
-    <!-- سەرپەڕە -->
     <div class="header">
-        <select id="citySelect" onchange="initApp()">
+        <select id="citySelect" onchange="onCityChange()">
             <option value="Qaladiza">📍 قەڵادزێ</option>
             <option value="Sulaymaniyah">📍 سلێمانی</option>
             <option value="Erbil">📍 هەولێر</option>
@@ -326,21 +375,22 @@
             <option value="Ranya">📍 ڕانیە</option>
             <option value="Soran">📍 سۆران</option>
         </select>
+        <button class="gps-btn" onclick="detectLocationGPS()">📡 GPS</button>
         <button class="icon-btn" onclick="toggleTheme()">🌓</button>
     </div>
 
-    <!-- دوگمەی چالاککردنی دەنگ -->
+    <div id="locationInfo" class="location-status">شوێنی هەڵبژێردراو: قەڵادزێ</div>
+
     <button id="soundToggleBtn" class="btn-sound" onclick="enableAudio()">
         🔇 کلیک بکە بۆ چالاککردنی دەنگی بانگ (گرنگە)
     </button>
 
-    <!-- بەشی ١: کاتەکانی بانگ -->
     <div id="tab-prayers" class="tab-content active">
         <div class="next-prayer-card">
             <div id="hijriDate" style="font-size: 13px; opacity: 0.9;">بەرواری کۆچی...</div>
             <div style="margin-top: 5px; font-size: 15px;">کات ماوە بۆ بانگی <strong id="nextPrayerName">...</strong></div>
             <div class="countdown" id="countdown">00:00:00</div>
-            
+
             <div class="audio-controls">
                 <select id="muezzinSelect" onchange="changeMuezzin()">
                     <option value="https://www.islamcan.com/audio/adhan/azan1.mp3">🕌 بانگی مەککە</option>
@@ -361,7 +411,6 @@
         </div>
     </div>
 
-    <!-- بەشی ٢: قیبلەنما -->
     <div id="tab-qibla" class="tab-content">
         <div class="card">
             <h3 style="margin-top:0;">🧭 ئاڕاستەی قیبلە</h3>
@@ -372,30 +421,26 @@
                     <div style="position:absolute; bottom:10px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--text-muted);">باشوور</div>
                 </div>
             </div>
-            <div id="qiblaAngleText" style="font-weight: bold; color: var(--accent);">گۆشەی قیبلە: 196° (باشووری ڕۆژئاوا)</div>
+            <div id="qiblaAngleText" style="font-weight: bold; color: var(--accent);">گۆشەی قیبلە: 196°</div>
             <button onclick="startCompass()" style="background: var(--accent); color: white; padding: 10px 18px; margin-top: 12px; font-weight: bold;">چالاککردنی قیبلەنمای زیندوو</button>
         </div>
     </div>
 
-    <!-- بەشی ٣: قورئانی پیرۆز -->
     <div id="tab-quran" class="tab-content">
         <div class="card">
-            <h3 style="margin-top:0;">📖 قورئانی پیرۆز</h3>
-            <select id="surahSelect" onchange="loadSurah()" style="width: 100%;">
-                <option value="1">١. سورة الفاتحة</option>
-                <option value="18">١٨. سورة الكهف</option>
-                <option value="36">٣٦. سورة يس</option>
-                <option value="55">٥٥. سورة الرحمن</option>
-                <option value="67">٦٧. سورة الملك</option>
-                <option value="112">١١٢. سورة الإخلاص</option>
-                <option value="113">١١٣. سورة الفلق</option>
-                <option value="114">١١٤. سورة الناس</option>
-            </select>
+            <h3 style="margin-top:0;">📖 قورئانی پیرۆز (١١٤ سوڕەت)</h3>
+            <div class="controls-stack">
+                <input type="text" id="surahSearch" class="search-input" placeholder="گەڕان بەدوای سوڕەتدا (بە عەرەبی یان ژمارە)..." oninput="filterSurahs()">
+                <select id="surahSelect" onchange="loadSurah()"></select>
+            </div>
+            <div class="quran-audio-box">
+                <div style="font-size: 12px; color: var(--text-muted);">🎧 خوێندنەوەی سوڕەت (مشاري راشد العفاسي)</div>
+                <audio id="quranAudio" controls preload="none"></audio>
+            </div>
             <div class="quran-text" id="quranContent">تکایە چاوەڕێ بکە بۆ هێنانی ئایەتەکان...</div>
         </div>
     </div>
 
-    <!-- بەشی ٤: تەسبیحات و زیکرەکان -->
     <div id="tab-azkar" class="tab-content">
         <div class="card">
             <h3 style="margin-top:0;">📿 تەسبیحاتی ئەلیکترۆنی</h3>
@@ -411,7 +456,7 @@
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;">🤲 زیکرەکانی بەیانیان و ئێواران</h3>
+            <h3 style="margin-top:0;">🤲 زیکر و دوعا ڕۆژانەکان</h3>
             <div class="zikr-box">
                 <strong>آية الكرسي:</strong><br>
                 اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ... (١ جار)
@@ -424,19 +469,30 @@
                 <strong>زیکری ڕازیبوون:</strong><br>
                 رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا (٣ جار)
             </div>
+            <div class="zikr-box">
+                <strong>دوعای دوای نوێژ:</strong><br>
+                أَسْتَغْفِرُ اللَّهَ (٣ جار) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ.
+            </div>
+            <div class="zikr-box">
+                <strong>دوعای سەفەر:</strong><br>
+                اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنْقَلِبُونَ.
+            </div>
+            <div class="zikr-box">
+                <strong>دوعای پێش خەو:</strong><br>
+                بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.
+            </div>
         </div>
     </div>
 
-    <!-- بەشی ٥: ناوە جوانەکانی خودا -->
     <div id="tab-names" class="tab-content">
         <div class="card">
-            <h3 style="margin-top:0;">✨ ناوە جوانەکانی خودای گەورە</h3>
+            <h3 style="margin-top:0;">✨ ٩٩ ناوە جوانەکەی خودای گەورە</h3>
+            <input type="text" id="namesSearch" class="search-input" placeholder="گەڕان بەدوای ناوەکاندا..." oninput="renderNames()">
             <div class="names-grid" id="namesGrid"></div>
         </div>
     </div>
 </div>
 
-<!-- شریتی خوارەوە -->
 <nav class="bottom-nav">
     <button class="nav-item active" onclick="switchTab('prayers', this)">
         <span class="nav-icon">🕌</span><span>بانگەکان</span>
@@ -461,20 +517,88 @@
 
 <script>
     const cityCoords = {
-        Qaladiza: { lat: 36.1856, lon: 45.1264, qibla: 196 },
-        Sulaymaniyah: { lat: 35.5613, lon: 45.4309, qibla: 198 },
-        Erbil: { lat: 36.1911, lon: 44.0092, qibla: 194 },
-        Duhok: { lat: 36.8669, lon: 42.9503, qibla: 191 },
-        Halabja: { lat: 35.1787, lon: 45.9864, qibla: 200 },
-        Kirkuk: { lat: 35.4681, lon: 44.3922, qibla: 195 },
-        Ranya: { lat: 36.2564, lon: 44.8825, qibla: 195 },
-        Soran: { lat: 36.6528, lon: 44.5442, qibla: 194 }
+        Qaladiza: { lat: 36.1856, lon: 45.1264, qibla: 196, label: "قەڵادزێ" },
+        Sulaymaniyah: { lat: 35.5613, lon: 45.4309, qibla: 198, label: "سلێمانی" },
+        Erbil: { lat: 36.1911, lon: 44.0092, qibla: 194, label: "هەولێر" },
+        Duhok: { lat: 36.8669, lon: 42.9503, qibla: 191, label: "دهۆک" },
+        Halabja: { lat: 35.1787, lon: 45.9864, qibla: 200, label: "هەڵەبجە" },
+        Kirkuk: { lat: 35.4681, lon: 44.3922, qibla: 195, label: "کەرکوک" },
+        Ranya: { lat: 36.2564, lon: 44.8825, qibla: 195, label: "ڕانیە" },
+        Soran: { lat: 36.6528, lon: 44.5442, qibla: 194, label: "سۆران" }
     };
+
+    const allSurahs = [
+        "الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس",
+        "هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه",
+        "الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم",
+        "لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر",
+        "فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق",
+        "الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة",
+        "الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج",
+        "نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس",
+        "التكوير","الإنفطار","المطففين","الإنشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد",
+        "الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات",
+        "القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر",
+        "المسد","الإخلاص","الفلق","الناس"
+    ];
+
+    const allahNames = [
+        ["اللَّهُ","خودای تاک و تەنها"],["الرَّحْمَنُ","زۆر بەبەزەیی"],["الرَّحِيمُ","میهرەبان"],["الْمَلِكُ","پادشای هەموو بوونەوەر"],["الْقُدُّوسُ","پاک و بێگەرد"],
+        ["السَّلَامُ","سەرچاوەی ئاشتی"],["الْمُؤْمِنُ","ئەمینبەخش"],["الْمُهَيْمِنُ","چاودێر بەسەر هەمووان"],["الْعَزِيزُ","باڵادەست و بەهێز"],["الْجَبَّارُ","چاککەرەوەی دڵشکاوان"],
+        ["الْمُتَكَبِّرُ","گەورە و شکۆمەند"],["الْخَالِقُ","بەدیهێنەر"],["الْبَارِئُ","دروستکەر"],["الْمُصَوِّرُ","وێنەکێش"],["الْغَفَّارُ","زۆر لێخۆشبوو"],
+        ["الْقَهَّارُ","بەسەر هەموواندا زاڵ"],["الْوَهَّابُ","زۆر بەخشندە"],["الرَّزَّاقُ","ڕۆزیدەر"],["الْفَتَّاحُ","دەرگاکەرەوەی خێر"],["الْعَلِيمُ","زانا بە هەموو شتێک"],
+        ["الْقَابِضُ","توندکەرەوە"],["الْبَاسِطُ","فراوانکەرەوە"],["الْخَافِضُ","نزمکەرەوە"],["الرَّافِعُ","بەرزکەرەوە"],["الْمُعِزُّ","عیززەتدەر"],
+        ["الْمُذِلُّ","زەلیلکەر"],["السَّمِيعُ","بیسەر"],["الْبَصِيرُ","بینەر"],["الْحَكَمُ","دادپەروەرترین"],["الْعَدْلُ","دادگەر"],
+        ["اللَّطِيفُ","وردبین و نەرمونیان"],["الْخَبِيرُ","ئاگادار"],["الْحَلِيمُ","هێمن و لەسەرخۆ"],["الْعَظِيمُ","مەزن"],["الْغَفُورُ","لێبووردە"],
+        ["الشَّكُورُ","سوپاسگوزار"],["الْعَلِيُّ","بەرز و باڵا"],["الْكَبِيرُ","گەورە"],["الْحَفِيظُ","پارێزەر"],["الْمُقِيتُ","بژێودەر و چاودێر"],
+        ["الْحَسِيبُ","حیسابکەر"],["الْجَلِيلُ","خاوەن شکۆ"],["الْكَرِيمُ","بەخشندە و بەڕێز"],["الرَّقِيبُ","چاودێر"],["الْمُجِيبُ","وەڵامدەرەوەی دوعا"],
+        ["الْوَاسِعُ","فراوان"],["الْحَكِيمُ","کاربەجێ"],["الْوَدُودُ","زۆر بەسۆز"],["الْمَجِيدُ","خاوەن شکۆ"],["الْبَاعِثُ","زیندووکەرەوە"],
+        ["الشَّهِيدُ","ئاگادار و شایەت"],["الْحَقُّ","ڕاست و حەق"],["الْوَكِيلُ","پشت و پەنا"],["الْقَوِيُّ","بەهێز"],["الْمَتِينُ","قایم و بەهێز"],
+        ["الْوَلِيُّ","پشتیوان"],["الْحَمِيدُ","ستایشکراو"],["الْمُحْصِي","ژمارەگر"],["الْمُبْدِئُ","دەستپێکەر"],["الْمُعِيدُ","گەڕێنەرەوە"],
+        ["الْمُحْيِي","ژیاندەر"],["الْمُمِيتُ","مرێنەر"],["الْحَيُّ","زیندوو"],["الْقَيُّومُ","ڕاگری هەموو شتێک"],["الْوَاجِدُ","دۆزەرەوە"],
+        ["الْمَاجِدُ","خاوەن شکۆ"],["الْوَاحِدُ","تاک"],["الْأَحَدُ","تاک و بێهاوتا"],["الصَّمَدُ","بێنیاز"],["الْقَادِرُ","بەتوانا"],
+        ["الْمُقْتَدِرُ","زۆر بەتوانا"],["الْمُقَدِّمُ","پێشخەر"],["الْمُؤَخِّرُ","دواخەر"],["الْأَوَّلُ","سەرەتا"],["الْآخِرُ","کۆتا"],
+        ["الظَّاهِرُ","ئاشکرا"],["الْبَاطِنُ","نادیار"],["الْوَالِي","سەرپەرشتیار"],["الْمُتَعَالِي","بەرز و باڵا"],["الْبَرُّ","چاکەکار"],
+        ["التَّوَّابُ","تۆبەوەرگر"],["الْمُنْتَقِمُ","تۆڵەسێن"],["الْعَفُوُّ","لێخۆشبوو"],["الرَّءُوفُ","زۆر بەڕەحم"],["مَالِكُ الْمُلْكِ","خاوەنی هەموو موڵکێک"],
+        ["ذُو الْجَلَالِ وَالْإِكْرَامِ","خاوەن شکۆ و ڕێز"],["الْمُقْسِطُ","دادپەروەر"],["الْجَامِعُ","کۆکەرەوە"],["الْغَنِيُّ","دەوڵەمەند و بێنیاز"],["الْمُغْنِي","دەوڵەمەندکەر"],
+        ["الْمَانِعُ","ڕێگر"],["الضَّارُّ","زیانگەیەنەر"],["النَّافِعُ","سوودگەیەنەر"],["النُّورُ","ڕووناکی"],["الْهَادِي","ڕێنیشاندەر"],
+        ["الْبَدِيعُ","داهێنەر و بێوێنە"],["الْبَاقِي","مانەوەدار و هەمیشەیی"],["الْوَارِثُ","میراتگر"],["الرَّشِيدُ","ڕێنیشاندەری دروست"],["الصَّبُورُ","ئارامگر"]
+    ];
 
     let prayerTimes = {};
     let audioEnabled = false;
     let lastPlayedPrayer = "";
+    let currentQiblaAngle = 196;
+    let customCoords = null;
     const adhanAudio = document.getElementById("adhanAudio");
+
+    function populateSurahSelect(filterText = "") {
+        const sel = document.getElementById("surahSelect");
+        const prevVal = sel.value || "1";
+        const q = filterText.trim().toLowerCase();
+        sel.innerHTML = "";
+        allSurahs.forEach((name, idx) => {
+            const num = idx + 1;
+            if (!q || name.toLowerCase().includes(q) || String(num).includes(q)) {
+                const opt = document.createElement("option");
+                opt.value = String(num);
+                opt.textContent = `${num}. سورة ${name}`;
+                sel.appendChild(opt);
+            }
+        });
+        if (!sel.options.length) {
+            const opt = document.createElement("option");
+            opt.value = "1";
+            opt.textContent = "1. سورة الفاتحة";
+            sel.appendChild(opt);
+        } else if ([...sel.options].some(o => o.value === prevVal)) {
+            sel.value = prevVal;
+        }
+    }
+
+    function filterSurahs() {
+        populateSurahSelect(document.getElementById("surahSearch").value);
+    }
 
     function switchTab(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -501,6 +625,7 @@
 
     function changeMuezzin() {
         const url = document.getElementById("muezzinSelect").value;
+        localStorage.setItem("islamic_muezzin", url);
         document.getElementById("adhanSource").src = url;
         adhanAudio.load();
     }
@@ -517,13 +642,60 @@
         }
     }
 
+    function calculateQibla(lat, lon) {
+        const kaabaLat = 21.4225 * Math.PI / 180;
+        const kaabaLon = 39.8262 * Math.PI / 180;
+        const pLat = lat * Math.PI / 180;
+        const pLon = lon * Math.PI / 180;
+        const dLon = kaabaLon - pLon;
+        const y = Math.sin(dLon) * Math.cos(kaabaLat);
+        const x = Math.cos(pLat) * Math.sin(kaabaLat) - Math.sin(pLat) * Math.cos(kaabaLat) * Math.cos(dLon);
+        let deg = Math.atan2(y, x) * 180 / Math.PI;
+        return Math.round((deg + 360) % 360);
+    }
+
+    function onCityChange() {
+        customCoords = null;
+        const city = document.getElementById("citySelect").value;
+        localStorage.setItem("islamic_city", city);
+        initApp();
+    }
+
+    function detectLocationGPS() {
+        if (!navigator.geolocation) {
+            alert("مۆبایلەکەت پشتگیری GPS ناکات.");
+            return;
+        }
+        document.getElementById("locationInfo").innerText = "📡 خەریکی دۆزینەوەی شوێنەکەتە...";
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                customCoords = {
+                    lat: pos.coords.latitude,
+                    lon: pos.coords.longitude,
+                    label: `GPS (${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)})`
+                };
+                initApp();
+            },
+            () => {
+                alert("نەتوانرا شوێنی GPS وەربگیرێت؛ دڵنیابە لە چالاکبوونی لۆکەیشن.");
+                initApp();
+            }
+        );
+    }
+
     async function initApp() {
         const city = document.getElementById("citySelect").value;
-        const coords = cityCoords[city];
-        document.getElementById("qiblaAngleText").innerText = `گۆشەی قیبلە بۆ ئەم شارە: ${coords.qibla}°`;
+        const fallback = cityCoords[city];
+        const lat = customCoords ? customCoords.lat : fallback.lat;
+        const lon = customCoords ? customCoords.lon : fallback.lon;
+        const label = customCoords ? customCoords.label : fallback.label;
+        currentQiblaAngle = customCoords ? calculateQibla(lat, lon) : fallback.qibla;
+
+        document.getElementById("locationInfo").innerText = `شوێنی چالاک: ${label}`;
+        document.getElementById("qiblaAngleText").innerText = `گۆشەی قیبلە: ${currentQiblaAngle}°`;
 
         try {
-            const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${coords.lat}&longitude=${coords.lon}&method=3`);
+            const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=3`);
             const data = await res.json();
             const t = data.data.timings;
             prayerTimes = { Fajr: t.Fajr, Sunrise: t.Sunrise, Dhuhr: t.Dhuhr, Asr: t.Asr, Maghrib: t.Maghrib, Isha: t.Isha };
@@ -568,21 +740,19 @@
             const hrs = Math.floor(minDiff / 3600000);
             const mins = Math.floor((minDiff % 3600000) / 60000);
             const secs = Math.floor((minDiff % 60000) / 1000);
-            document.getElementById("countdown").innerText = 
+            document.getElementById("countdown").innerText =
                 `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
         }
     }, 1000);
 
     function startCompass() {
-        const city = document.getElementById("citySelect").value;
-        const qiblaAngle = cityCoords[city].qibla;
         if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission().then(res => {
-                if (res === 'granted') window.addEventListener('deviceorientation', e => updateCompass(e, qiblaAngle));
+                if (res === 'granted') window.addEventListener('deviceorientation', e => updateCompass(e, currentQiblaAngle));
             });
         } else {
-            window.addEventListener('deviceorientationabsolute', e => updateCompass(e, qiblaAngle), true);
-            window.addEventListener('deviceorientation', e => updateCompass(e, qiblaAngle), true);
+            window.addEventListener('deviceorientationabsolute', e => updateCompass(e, currentQiblaAngle), true);
+            window.addEventListener('deviceorientation', e => updateCompass(e, currentQiblaAngle), true);
         }
     }
 
@@ -595,9 +765,12 @@
     }
 
     async function loadSurah() {
-        const num = document.getElementById("surahSelect").value;
+        const num = document.getElementById("surahSelect").value || "1";
         const box = document.getElementById("quranContent");
-        box.innerText = "⏳ خەریکی هێنانی سورەتەکەیە...";
+        const qAudio = document.getElementById("quranAudio");
+        const padded = String(num).padStart(3, "0");
+        qAudio.src = `https://server8.mp3quran.net/afs/${padded}.mp3`;
+        box.innerText = "⏳ خەریکی هێنانی سوڕەتەکەیە...";
         try {
             const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
             const data = await res.json();
@@ -625,35 +798,36 @@
         localStorage.setItem("tasbih_v2", 0);
     }
 
-    const allahNames = [
-        ["اللَّهُ", "خودای تاک و تەنها"], ["الرَّحْمَنُ", "زۆر بەبەزەیی"], ["الرَّحِيمُ", "میهرەبان"],
-        ["الْمَلِكُ", "پادشای هەموو بوونەوەر"], ["الْقُدُّوسُ", "پاک و بێگەرد"], ["السَّلَامُ", "سەرچاوەی ئاشتی"],
-        ["الْمُؤْمِنُ", "ئەمینبەخش"], ["الْمُهَيْمِنُ", "چاودێر بەسەر هەمووان"], ["الْعَزِيزُ", "باڵادەست و بەهێز"],
-        ["الْجَبَّارُ", "چاککەرەوەی دڵشکاوان"], ["الْمُتَكَبِّرُ", "گەورە و شکۆمەند"], ["الْخَالِقُ", "بەدیهێنەر"],
-        ["الْبَارِئُ", "دروستکەر"], ["الْمُصَوِّرُ", "وێنەکێش"], ["الْغَفَّارُ", "زۆر لێخۆشبوو"],
-        ["الْقَهَّارُ", "بەسەر هەموواندا زاڵ"], ["الْوَهَّابُ", "زۆر بەخشندە"], ["الرَّزَّاقُ", "ڕۆزیدەر"],
-        ["الْفَتَّاحُ", "دەرگاکەرەوەی خێر"], ["الْعَلِيمُ", "زانا بە هەموو شتێک"], ["السَّمِيعُ", "بیسەر"],
-        ["الْبَصِيرُ", "بینەر"], ["الْحَكَمُ", "دادپەروەرترین"], ["اللَّطِيفُ", "وردبین و نەرمونیان"],
-        ["الْخَبِيرُ", "ئاگادار"], ["الْحَلِيمُ", "هێمن و لەسەرخۆ"], ["الْعَظِيمُ", "مەزن"],
-        ["الْغَفُورُ", "لێبووردە"], ["الشَّكُورُ", "سوپاسگوزار"], ["الْحَفِيظُ", "پارێزەر"],
-        ["الْكَرِيمُ", "بەخشندە و بەڕێز"], ["الرَّقِيبُ", "چاودێر"], ["الْمُجِيبُ", "وەڵامدەرەوەی دوعا"],
-        ["الْوَاسِعُ", "فراوان"], ["الْحَكِيمُ", "کاربەجێ"], ["الْوَدُودُ", "زۆر بەسۆز"],
-        ["الْمَجِيدُ", "خاوەن شکۆ"], ["الشَّهِيدُ", "ئاگادار و شایەت"], ["الْحَقُّ", "ڕاست و حەق"],
-        ["الْوَكِيلُ", "پشت و پەنا"], ["الْقَوِيُّ", "بەهێز"], ["الْوَلِيُّ", "پشتیوان"],
-        ["الصَّمَدُ", "بێنیاز"], ["الْقَادِرُ", "بەتوانا"], ["التَّوَّابُ", "تۆبەوەرگر"],
-        ["الْعَفُوُّ", "لێخۆشبوو"], ["الرَّءُوفُ", "زۆر بەڕەحم"], ["النُّورُ", "ڕووناکی"],
-        ["الْهَادِي", "ڕێنیشاندەر"], ["الصَّبُورُ", "ئارامگر"]
-    ];
-
-    const grid = document.getElementById("namesGrid");
-    allahNames.forEach(([ar, ku]) => {
-        grid.innerHTML += `<div class="name-item"><div class="name-ar">${ar}</div><div style="font-size:11px; color:var(--text-muted);">${ku}</div></div>`;
-    });
+    function renderNames() {
+        const q = (document.getElementById("namesSearch").value || "").trim().toLowerCase();
+        const grid = document.getElementById("namesGrid");
+        grid.innerHTML = "";
+        allahNames.forEach(([ar, ku], index) => {
+            const num = index + 1;
+            if (!q || ar.toLowerCase().includes(q) || ku.toLowerCase().includes(q) || String(num).includes(q)) {
+                grid.innerHTML += `<div class="name-item"><div class="name-num">${num}</div><div class="name-ar">${ar}</div><div style="font-size:11px; color:var(--text-muted);">${ku}</div></div>`;
+            }
+        });
+    }
 
     function toggleTheme() {
         document.body.classList.toggle("light-mode");
+        localStorage.setItem("islamic_theme", document.body.classList.contains("light-mode") ? "light" : "dark");
     }
 
+    const savedCity = localStorage.getItem("islamic_city");
+    if (savedCity && cityCoords[savedCity]) document.getElementById("citySelect").value = savedCity;
+    const savedMuezzin = localStorage.getItem("islamic_muezzin");
+    if (savedMuezzin) {
+        document.getElementById("muezzinSelect").value = savedMuezzin;
+        changeMuezzin();
+    }
+    if (localStorage.getItem("islamic_theme") === "light") {
+        document.body.classList.add("light-mode");
+    }
+
+    populateSurahSelect();
+    renderNames();
     initApp();
 </script>
 </body>
