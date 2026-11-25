@@ -16,6 +16,7 @@
             --accent: #10b981;
             --accent-dark: #059669;
             --gold: #f59e0b;
+            --danger: #ef4444;
         }
 
         body.light-mode {
@@ -36,7 +37,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 0 0 85px 0;
+            padding: 0 0 90px 0;
             transition: background 0.3s, color 0.3s;
             display: flex;
             flex-direction: column;
@@ -53,7 +54,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             gap: 8px;
         }
 
@@ -109,7 +110,7 @@
             color: white;
             width: 100%;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             padding: 12px;
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
             display: flex;
@@ -121,6 +122,30 @@
         .btn-sound.active {
             background: linear-gradient(90deg, #10b981, #059669);
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .adhan-alert-banner {
+            display: none;
+            background: linear-gradient(135deg, #065f46, #10b981);
+            color: #ffffff;
+            border: 2px solid #a7f3d0;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 14px;
+            text-align: center;
+            box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+        }
+
+        .adhan-alert-banner.show {
+            display: block;
+        }
+
+        .stop-adhan-btn {
+            background: #dc2626;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 8px 16px;
+            margin-top: 10px;
         }
 
         .tab-content {
@@ -183,9 +208,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
+            padding: 10px 14px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.1);
             border-radius: 12px;
+            gap: 8px;
         }
 
         .prayer-item:last-child { border-bottom: none; }
@@ -195,6 +221,27 @@
             border: 1px solid var(--accent);
             font-weight: bold;
             color: var(--accent);
+        }
+
+        .prayer-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prayer-toggle-btn {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 8px;
+        }
+
+        .prayer-toggle-btn.muted {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border-color: var(--danger);
         }
 
         .card {
@@ -295,6 +342,17 @@
             line-height: 1.9;
         }
 
+        .kaffarah-box {
+            text-align: right;
+            background: rgba(245, 158, 11, 0.1);
+            border-right: 4px solid var(--gold);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
         .search-input {
             width: 100%;
             margin-bottom: 10px;
@@ -385,6 +443,12 @@
         🔇 کلیک بکە بۆ چالاککردنی دەنگی بانگ (گرنگە)
     </button>
 
+    <div id="adhanAlertBanner" class="adhan-alert-banner">
+        <div id="adhanAlertTitle" style="font-size: 16px; font-weight: bold;">🕌 کاتی بانگ هات</div>
+        <div id="adhanAlertSub" style="font-size: 12px; opacity: 0.95; margin-top: 4px;">دەنگی بانگ لێ دەدرێت</div>
+        <button class="stop-adhan-btn" onclick="stopAdhanPlayback()">⏹️ ڕاگرتنی دەنگی بانگ</button>
+    </div>
+
     <div id="tab-prayers" class="tab-content active">
         <div class="next-prayer-card">
             <div id="hijriDate" style="font-size: 13px; opacity: 0.9;">بەرواری کۆچی...</div>
@@ -398,16 +462,50 @@
                     <option value="https://www.islamcan.com/audio/adhan/azan3.mp3">🕌 بانگی قودس (ئەقسا)</option>
                 </select>
                 <button onclick="testAdhan()" id="testBtn">🔊 تاقیکردنەوە</button>
+                <button onclick="simulateAdhanNow()">🔔 تاقیکردنەوەی کاتی بانگ</button>
             </div>
         </div>
 
         <div class="prayer-list">
-            <div class="prayer-item" id="row-Fajr"><span>🌅 بەیانی</span><span id="Fajr">--:--</span></div>
-            <div class="prayer-item" id="row-Sunrise"><span>☀️ خۆرهەڵاتن</span><span id="Sunrise">--:--</span></div>
-            <div class="prayer-item" id="row-Dhuhr"><span>🕛 نیوەڕۆ</span><span id="Dhuhr">--:--</span></div>
-            <div class="prayer-item" id="row-Asr"><span>🌤️ عەسر</span><span id="Asr">--:--</span></div>
-            <div class="prayer-item" id="row-Maghrib"><span>🌇 مەغریب</span><span id="Maghrib">--:--</span></div>
-            <div class="prayer-item" id="row-Isha"><span>🌙 عیشا</span><span id="Isha">--:--</span></div>
+            <div class="prayer-item" id="row-Fajr">
+                <span>🌅 بەیانی</span>
+                <div class="prayer-right">
+                    <span id="Fajr">--:--</span>
+                    <button class="prayer-toggle-btn" id="btn-Fajr" onclick="togglePrayerSound('Fajr')">بانگ چالاک</button>
+                </div>
+            </div>
+            <div class="prayer-item" id="row-Sunrise">
+                <span>☀️ خۆرهەڵاتن</span>
+                <div class="prayer-right"><span id="Sunrise">--:--</span></div>
+            </div>
+            <div class="prayer-item" id="row-Dhuhr">
+                <span>🕛 نیوەڕۆ</span>
+                <div class="prayer-right">
+                    <span id="Dhuhr">--:--</span>
+                    <button class="prayer-toggle-btn" id="btn-Dhuhr" onclick="togglePrayerSound('Dhuhr')">بانگ چالاک</button>
+                </div>
+            </div>
+            <div class="prayer-item" id="row-Asr">
+                <span>🌤️ عەسر</span>
+                <div class="prayer-right">
+                    <span id="Asr">--:--</span>
+                    <button class="prayer-toggle-btn" id="btn-Asr" onclick="togglePrayerSound('Asr')">بانگ چالاک</button>
+                </div>
+            </div>
+            <div class="prayer-item" id="row-Maghrib">
+                <span>🌇 مەغریب</span>
+                <div class="prayer-right">
+                    <span id="Maghrib">--:--</span>
+                    <button class="prayer-toggle-btn" id="btn-Maghrib" onclick="togglePrayerSound('Maghrib')">بانگ چالاک</button>
+                </div>
+            </div>
+            <div class="prayer-item" id="row-Isha">
+                <span>🌙 عیشا</span>
+                <div class="prayer-right">
+                    <span id="Isha">--:--</span>
+                    <button class="prayer-toggle-btn" id="btn-Isha" onclick="togglePrayerSound('Isha')">بانگ چالاک</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -453,6 +551,11 @@
             </select>
             <button class="tasbih-btn" id="tasbihCount" onclick="countTasbih()">0</button>
             <button onclick="resetTasbih()" style="background: #ef4444; color: white; padding: 6px 14px;">سفرکردنەوە ↺</button>
+
+            <div class="kaffarah-box">
+                <strong>📿 کەفارەتی کۆڕ و مەجلیس:</strong><br>
+                سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ.
+            </div>
         </div>
 
         <div class="card">
@@ -480,6 +583,10 @@
             <div class="zikr-box">
                 <strong>دوعای پێش خەو:</strong><br>
                 بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.
+            </div>
+            <div class="zikr-box">
+                <strong>دوعای بەیانی لە خەو هەستان:</strong><br>
+                الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ.
             </div>
         </div>
     </div>
@@ -565,12 +672,68 @@
         ["الْبَدِيعُ","داهێنەر و بێوێنە"],["الْبَاقِي","مانەوەدار و هەمیشەیی"],["الْوَارِثُ","میراتگر"],["الرَّشِيدُ","ڕێنیشاندەری دروست"],["الصَّبُورُ","ئارامگر"]
     ];
 
+    const namesKu = { Fajr: "بەیانی", Dhuhr: "نیوەڕۆ", Asr: "عەسر", Maghrib: "مەغریب", Isha: "عیشا" };
     let prayerTimes = {};
-    let audioEnabled = false;
+    let audioEnabled = localStorage.getItem("islamic_audio_enabled") === "1";
     let lastPlayedPrayer = "";
     let currentQiblaAngle = 196;
     let customCoords = null;
+    let prayerSoundState = JSON.parse(localStorage.getItem("islamic_prayer_sounds") || '{"Fajr":true,"Dhuhr":true,"Asr":true,"Maghrib":true,"Isha":true}');
     const adhanAudio = document.getElementById("adhanAudio");
+
+    function updateAudioBtnUI() {
+        const btn = document.getElementById("soundToggleBtn");
+        if (audioEnabled) {
+            btn.innerHTML = "🔊 دەنگی بانگ چالاکە و ئامادەیە (کلیک بکە بۆ نوێکردنەوە)";
+            btn.classList.add("active");
+        } else {
+            btn.innerHTML = "🔇 کلیک بکە بۆ چالاککردنی دەنگی بانگ (گرنگە)";
+            btn.classList.remove("active");
+        }
+    }
+
+    function renderPrayerSoundButtons() {
+        Object.keys(namesKu).forEach(k => {
+            const btn = document.getElementById("btn-" + k);
+            if (!btn) return;
+            const on = prayerSoundState[k] !== false;
+            btn.textContent = on ? "بانگ چالاک" : "بێدەنگ";
+            btn.classList.toggle("muted", !on);
+        });
+    }
+
+    function togglePrayerSound(key) {
+        prayerSoundState[key] = !(prayerSoundState[key] !== false);
+        localStorage.setItem("islamic_prayer_sounds", JSON.stringify(prayerSoundState));
+        renderPrayerSoundButtons();
+    }
+
+    function triggerAdhanAlert(prayerLabelKu) {
+        const banner = document.getElementById("adhanAlertBanner");
+        document.getElementById("adhanAlertTitle").textContent = `🕌 کاتی بانگی ${prayerLabelKu} هات!`;
+        document.getElementById("adhanAlertSub").textContent = audioEnabled ? "دەنگی بانگ لێ دەدرێت..." : "بۆ لێدانی دەنگ دوگمەی چالاککردنی دەنگ داگرە";
+        banner.classList.add("show");
+        if (navigator.vibrate) navigator.vibrate([500, 200, 500, 200, 500]);
+        if ("Notification" in window && Notification.permission === "granted") {
+            new Notification(`🕌 بانگی ${prayerLabelKu}`, { body: "کاتی نوێژ و بانگ هات" });
+        }
+        if (audioEnabled) {
+            adhanAudio.currentTime = 0;
+            adhanAudio.play().catch(() => {});
+        }
+    }
+
+    function stopAdhanPlayback() {
+        adhanAudio.pause();
+        adhanAudio.currentTime = 0;
+        document.getElementById("adhanAlertBanner").classList.remove("show");
+        document.getElementById("testBtn").innerText = "🔊 تاقیکردنەوە";
+    }
+
+    function simulateAdhanNow() {
+        enableAudio();
+        triggerAdhanAlert(document.getElementById("nextPrayerName").textContent || "بەیانی");
+    }
 
     function populateSurahSelect(filterText = "") {
         const sel = document.getElementById("surahSelect");
@@ -611,15 +774,19 @@
     }
 
     function enableAudio() {
+        if ("Notification" in window && Notification.permission === "default") {
+            Notification.requestPermission().catch(() => {});
+        }
         adhanAudio.play().then(() => {
             adhanAudio.pause();
             adhanAudio.currentTime = 0;
             audioEnabled = true;
-            const btn = document.getElementById("soundToggleBtn");
-            btn.innerHTML = "🔊 دەنگی بانگ چالاکە و ئامادەیە";
-            btn.classList.add("active");
+            localStorage.setItem("islamic_audio_enabled", "1");
+            updateAudioBtnUI();
         }).catch(() => {
-            alert("تکایە دووبارە کلیک بکە بۆ چالاککردنی دەنگ.");
+            audioEnabled = true;
+            localStorage.setItem("islamic_audio_enabled", "1");
+            updateAudioBtnUI();
         });
     }
 
@@ -633,12 +800,15 @@
     function testAdhan() {
         const btn = document.getElementById("testBtn");
         if (!adhanAudio.paused) {
-            adhanAudio.pause();
-            adhanAudio.currentTime = 0;
-            btn.innerText = "🔊 تاقیکردنەوە";
+            stopAdhanPlayback();
         } else {
-            adhanAudio.play();
-            btn.innerText = "⏹️ وەستان";
+            audioEnabled = true;
+            localStorage.setItem("islamic_audio_enabled", "1");
+            updateAudioBtnUI();
+            adhanAudio.currentTime = 0;
+            adhanAudio.play().then(() => {
+                btn.innerText = "⏹️ وەستان";
+            }).catch(() => {});
         }
     }
 
@@ -711,14 +881,14 @@
         if (!prayerTimes.Fajr) return;
         const now = new Date();
         const currentStr = now.toTimeString().slice(0, 5);
-        const namesKu = { Fajr: "بەیانی", Dhuhr: "نیوەڕۆ", Asr: "عەسر", Maghrib: "مەغریب", Isha: "عیشا" };
 
         for (let key in namesKu) {
-            if (prayerTimes[key] === currentStr && now.getSeconds() === 0 && lastPlayedPrayer !== key) {
+            const cleanTime = (prayerTimes[key] || "").slice(0, 5);
+            if (cleanTime === currentStr && now.getSeconds() === 0 && lastPlayedPrayer !== key) {
                 lastPlayedPrayer = key;
-                if (audioEnabled) adhanAudio.play();
-                if (navigator.vibrate) navigator.vibrate([500, 200, 500]);
-                alert(`🕌 کاتی بانگی ${namesKu[key]} هات!`);
+                if (prayerSoundState[key] !== false) {
+                    triggerAdhanAlert(namesKu[key]);
+                }
             }
         }
 
@@ -726,7 +896,7 @@
         document.querySelectorAll('.prayer-item').forEach(el => el.classList.remove('current'));
 
         for (let key in namesKu) {
-            const [h, m] = prayerTimes[key].split(':');
+            const [h, m] = (prayerTimes[key] || "00:00").split(':');
             const pDate = new Date();
             pDate.setHours(h, m, 0, 0);
             let diff = pDate - now;
@@ -826,6 +996,8 @@
         document.body.classList.add("light-mode");
     }
 
+    updateAudioBtnUI();
+    renderPrayerSoundButtons();
     populateSurahSelect();
     renderNames();
     initApp();
